@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId "com.breku.math"
-        minSdkVersion 8
+        minSdkVersion 16
         targetSdkVersion 24
     }
 }
