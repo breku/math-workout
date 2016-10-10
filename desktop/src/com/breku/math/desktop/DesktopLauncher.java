@@ -7,6 +7,6 @@ import com.breku.math.MyGdxGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new MyGdxGame(), config);
+		new LwjglApplication(new MyGdxGame(new DesktopGoogleApiService()), config);
 	}
 }
