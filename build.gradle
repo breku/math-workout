@@ -51,8 +51,13 @@ project(":android") {
 
     dependencies {
         compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         compile project(":BaseGameUtils")
+        compile 'com.google.android.gms:play-services-plus:9.6.1'
+        compile 'com.google.android.gms:play-services-auth:9.6.1'
+        compile 'com.google.android.gms:play-services-base:9.6.1'
+        compile 'com.google.android.gms:play-services-appinvite:9.6.1'
+        compile 'com.google.android.gms:play-services-games:9.6.1'
+        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
