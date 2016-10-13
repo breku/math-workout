@@ -52,10 +52,6 @@ public class AndroidLauncher extends AndroidApplication implements GameHelper.Ga
         return gameHelper;
     }
 
-    public void setGameHelper(GameHelper gameHelper) {
-        this.gameHelper = gameHelper;
-    }
-
     @Override
     public void onActivityResult(int request, int response, Intent data) {
         super.onActivityResult(request, response, data);
