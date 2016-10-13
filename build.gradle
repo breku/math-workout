@@ -45,6 +45,7 @@ project(":desktop") {
 }
 
 project(":android") {
+
     apply plugin: "android"
 
     configurations { natives }
@@ -75,8 +76,13 @@ project(":android") {
 project(":core") {
     apply plugin: "java"
 
+    sourceSets.test.java.srcDirs = ["test/"]
+
 
     dependencies {
+        testCompile "junit:junit:4.12"
+        testCompile "org.mockito:mockito-core:1.9.5"
+
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
     }

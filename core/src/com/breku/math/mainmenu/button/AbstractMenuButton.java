@@ -1,4 +1,4 @@
-package com.breku.math.mainmenu;
+package com.breku.math.mainmenu.button;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.breku.math.button.AbstractButton;

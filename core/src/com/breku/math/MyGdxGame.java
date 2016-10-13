@@ -10,45 +10,42 @@ import com.breku.math.mainmenu.MainMenuScreen;
 import com.breku.math.screen.AbstractScreen;
 
 public class MyGdxGame extends Game {
-	SpriteBatch batch;
-	Texture img;
-	private static final String TAG = "MyGdxGame";
-	private AbstractScreen currentScreen;
+    private static final String TAG = "MyGdxGame";
+    private final GoogleApiService googleApiService;
+    SpriteBatch batch;
+    Texture img;
+    private AbstractScreen currentScreen;
+    private boolean touchedAlready = false;
 
-	private final GoogleApiService googleApiService;
+    public MyGdxGame(GoogleApiService googleApiService) {
+        this.googleApiService = googleApiService;
+    }
 
-	public MyGdxGame(GoogleApiService googleApiService) {
-		this.googleApiService = googleApiService;
-	}
+    @Override
+    public void create() {
+        batch = new SpriteBatch();
+        img = new Texture("badlogic.jpg");
+        currentScreen = new MainMenuScreen(googleApiService);
+        setScreen(currentScreen);
 
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-		currentScreen =new MainMenuScreen(googleApiService);
-		setScreen(currentScreen);
+    }
 
-	}
+    @Override
+    public void dispose() {
+        batch.dispose();
+        img.dispose();
+    }
 
-
-	private boolean touchedAlready = false;
-
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-		batch.begin();
-		currentScreen.render(Gdx.graphics.getDeltaTime());
-		batch.end();
+    @Override
+    public void render() {
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
-	}
+        batch.begin();
+        currentScreen.render(Gdx.graphics.getDeltaTime());
+        batch.end();
+
+
+    }
 }
