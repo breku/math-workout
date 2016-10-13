@@ -10,8 +10,8 @@ public class PlayWithFriendButton extends AbstractMenuButton {
 
     private final GoogleApiService googleApiService;
 
-    public PlayWithFriendButton(GoogleApiService googleApiService) {
-        super(new Texture("gfx/menu/play_with_friend.png"), 600, 500);
+    public PlayWithFriendButton(Texture texture,GoogleApiService googleApiService) {
+        super(texture, 600, 500);
         this.googleApiService = googleApiService;
     }
 

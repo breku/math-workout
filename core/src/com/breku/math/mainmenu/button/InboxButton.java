@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class InboxButton extends AbstractMenuButton {
 
-    public InboxButton() {
-        super(new Texture("gfx/menu/inbox.png"), 1200, 500);
+    public InboxButton(Texture texture) {
+        super(texture, 1200, 500);
 
     }
 }

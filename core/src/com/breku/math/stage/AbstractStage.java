@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.breku.math.configuration.ContextConstants;
 import com.breku.math.googleplay.GoogleApiService;
 import com.breku.math.screen.ScreenType;
+import com.breku.math.screen.manager.TextureManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,13 +16,15 @@ import java.util.Map;
 public abstract class AbstractStage extends Stage {
 
     protected final GoogleApiService googleApiService;
+    protected final TextureManager textureManager;
     protected Map<String, Object> additionalData = new HashMap<>();
     private ScreenType targetScreenType = ScreenType.NONE;
 
 
-    public AbstractStage(GoogleApiService googleApiService) {
+    public AbstractStage(GoogleApiService googleApiService, TextureManager textureManager) {
         super(new StretchViewport(ContextConstants.SCREEN_WIDTH, ContextConstants.SCREEN_HEIGHT));
         this.googleApiService = googleApiService;
+        this.textureManager = textureManager;
     }
 
     public Map<String, Object> getAdditionalData() {

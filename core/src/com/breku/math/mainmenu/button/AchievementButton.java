@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class AchievementButton extends AbstractMenuButton {
 
-    public AchievementButton() {
-        super(new Texture("gfx/menu/achievement.png"), 0, 0);
+    public AchievementButton(Texture texture) {
+        super(texture, 0, 0);
 
     }
 }

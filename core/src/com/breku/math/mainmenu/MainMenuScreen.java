@@ -2,6 +2,7 @@ package com.breku.math.mainmenu;
 
 import com.breku.math.googleplay.GoogleApiService;
 import com.breku.math.screen.AbstractScreen;
+import com.breku.math.screen.manager.TextureManager;
 import com.breku.math.stage.AbstractStage;
 
 /**
@@ -9,7 +10,7 @@ import com.breku.math.stage.AbstractStage;
  */
 public class MainMenuScreen extends AbstractScreen {
 
-    public MainMenuScreen(GoogleApiService googleApiService) {
-        super(new MainMenuStage(googleApiService));
+    public MainMenuScreen(GoogleApiService googleApiService, TextureManager textureManager) {
+        super(new MainMenuStage(googleApiService,textureManager));
     }
 }

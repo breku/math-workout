@@ -10,8 +10,8 @@ public class ExitButton extends AbstractMenuButton {
 
     private static final String TAG = "ExitButton";
 
-    public ExitButton() {
-        super(new Texture("gfx/menu/exit.png"), 1200, 0);
+    public ExitButton(Texture texture) {
+        super(texture, 1200, 0);
     }
 
     @Override

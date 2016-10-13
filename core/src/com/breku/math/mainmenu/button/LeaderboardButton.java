@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class LeaderboardButton extends AbstractMenuButton {
 
-    public LeaderboardButton() {
-        super(new Texture("gfx/menu/leaderboard.png"), 600, 0);
+    public LeaderboardButton(Texture texture) {
+        super(texture, 600, 0);
     }
 }

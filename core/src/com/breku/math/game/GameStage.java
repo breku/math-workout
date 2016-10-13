@@ -1,6 +1,7 @@
 package com.breku.math.game;
 
 import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.screen.manager.TextureManager;
 import com.breku.math.stage.AbstractStage;
 
 /**
@@ -8,8 +9,8 @@ import com.breku.math.stage.AbstractStage;
  */
 public class GameStage extends AbstractStage {
 
-    public GameStage(GoogleApiService googleApiService) {
-        super(googleApiService);
+    public GameStage(GoogleApiService googleApiService, TextureManager textureManager) {
+        super(googleApiService, textureManager);
     }
 
     @Override

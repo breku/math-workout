@@ -16,11 +16,13 @@ import java.util.Map;
 public class ScreenManager {
     private static final String TAG = "ScreenManager";
 
-    private AbstractScreen menuScreen, gameScreen;
+    private final AbstractScreen menuScreen, gameScreen;
+    private final TextureManager textureManager;
 
-    public ScreenManager(GoogleApiService googleApiService) {
-        menuScreen = new MainMenuScreen(googleApiService);
-        gameScreen = new GameScreen(googleApiService);
+    public ScreenManager(GoogleApiService googleApiService,TextureManager textureManager) {
+        this.textureManager = textureManager;
+        menuScreen = new MainMenuScreen(googleApiService,textureManager);
+        gameScreen = new GameScreen(googleApiService,textureManager);
     }
 
     public AbstractScreen getInitScreen() {
