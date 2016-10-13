@@ -1,4 +1,4 @@
-package com.breku.math.core.game.equation;
+package com.breku.math.game.equation;
 
 /**
  * Created by brekol on 13.10.16.

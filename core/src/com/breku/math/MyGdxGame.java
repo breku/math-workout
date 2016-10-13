@@ -1,21 +1,20 @@
 package com.breku.math;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.breku.math.googleplay.GoogleApiService;
-import com.breku.math.mainmenu.MainMenuScreen;
 import com.breku.math.screen.AbstractScreen;
+import com.breku.math.screen.manager.ScreenManager;
 
 public class MyGdxGame extends Game {
     private static final String TAG = "MyGdxGame";
     private final GoogleApiService googleApiService;
-    SpriteBatch batch;
-    Texture img;
+    private SpriteBatch batch;
     private AbstractScreen currentScreen;
-    private boolean touchedAlready = false;
+    private ScreenManager screenManager;
 
     public MyGdxGame(GoogleApiService googleApiService) {
         this.googleApiService = googleApiService;
@@ -23,17 +22,23 @@ public class MyGdxGame extends Game {
 
     @Override
     public void create() {
-        batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
-        currentScreen = new MainMenuScreen(googleApiService);
+        initialize();
+        currentScreen = screenManager.getInitScreen();
         setScreen(currentScreen);
+    }
 
+    private void initialize() {
+        Gdx.app.log(TAG, ">> Initializing app");
+        batch = new SpriteBatch();
+        screenManager = new ScreenManager(googleApiService);
+        Gdx.input.setCatchBackKey(true);
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        Gdx.app.log(TAG, "<< Initializing app finished");
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-        img.dispose();
     }
 
     @Override
@@ -44,6 +49,7 @@ public class MyGdxGame extends Game {
 
         batch.begin();
         currentScreen.render(Gdx.graphics.getDeltaTime());
+        screenManager.handleTargetScreenType(this, currentScreen);
         batch.end();
 
 

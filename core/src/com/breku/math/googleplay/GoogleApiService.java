@@ -6,4 +6,6 @@ package com.breku.math.googleplay;
 public interface GoogleApiService {
 
     void launchInvitePlayersScreen();
+
+    void launchQuickGame(LaunchCallback launchCallback);
 }

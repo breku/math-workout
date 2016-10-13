@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class QuickMatchButton extends AbstractMenuButton {
 
+
     public QuickMatchButton() {
         super(new Texture("gfx/menu/play.png"), 14, 500);
     }
@@ -14,7 +15,5 @@ public class QuickMatchButton extends AbstractMenuButton {
     @Override
     public void act(float delta) {
         super.act(delta);
-
-
     }
 }

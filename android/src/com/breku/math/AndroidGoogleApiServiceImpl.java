@@ -3,6 +3,7 @@ package com.breku.math;
 import android.content.Intent;
 import com.badlogic.gdx.Gdx;
 import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.googleplay.LaunchCallback;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper;
 
@@ -32,5 +33,11 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
         Intent intent =
                 Games.TurnBasedMultiplayer.getSelectOpponentsIntent(gameHelper.getApiClient(), 1, 7, true);
         androidLauncher.startActivityForResult(intent, RC_SELECT_PLAYERS);
+    }
+
+    @Override
+    public void launchQuickGame(LaunchCallback launchCallback) {
+        Gdx.app.log(TAG, "launchQuickGame");
+        // TODO jbrek createautomach criteria
     }
 }

@@ -1,6 +1,7 @@
 package com.breku.math.mainmenu;
 
 import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.googleplay.QuickMatchCallback;
 import com.breku.math.mainmenu.button.*;
 import com.breku.math.stage.AbstractStage;
 
@@ -9,7 +10,7 @@ import com.breku.math.stage.AbstractStage;
  */
 public class MainMenuStage extends AbstractStage {
 
-    private AbstractMenuButton playButton, achievementButton, exitButton, inboxButton, leaderboardButton, playWithFriendButton;
+    private AbstractMenuButton quickMatchButton, achievementButton, exitButton, inboxButton, leaderboardButton, playWithFriendButton;
 
     public MainMenuStage(GoogleApiService googleApiService) {
         super(googleApiService);
@@ -18,14 +19,14 @@ public class MainMenuStage extends AbstractStage {
     @Override
     public void initialize() {
         super.initialize();
-        playButton = new QuickMatchButton();
+        quickMatchButton = new QuickMatchButton();
         playWithFriendButton = new PlayWithFriendButton(googleApiService);
         inboxButton = new InboxButton();
         achievementButton = new AchievementButton();
         leaderboardButton = new LeaderboardButton();
         exitButton = new ExitButton();
 
-        addActor(playButton);
+        addActor(quickMatchButton);
         addActor(playWithFriendButton);
         addActor(inboxButton);
         addActor(achievementButton);
@@ -34,8 +35,23 @@ public class MainMenuStage extends AbstractStage {
     }
 
     @Override
+    public void disposeStage() {
+        quickMatchButton.remove();
+        playWithFriendButton.remove();
+        inboxButton.remove();
+        achievementButton.remove();
+        leaderboardButton.remove();
+        exitButton.remove();
+    }
+
+    @Override
     public void act(float delta) {
         super.act(delta);
+
+        if (quickMatchButton.isClicked()) {
+            quickMatchButton.setClicked(false);
+            googleApiService.launchQuickGame(new QuickMatchCallback(this));
+        }
 
     }
 }

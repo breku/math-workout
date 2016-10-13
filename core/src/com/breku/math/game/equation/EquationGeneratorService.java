@@ -1,4 +1,4 @@
-package com.breku.math.core.game.equation;
+package com.breku.math.game.equation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class EquationGeneratorService {
 
-    public List<EquationModel> generateEquations(){
+    public List<EquationModel> generateEquations() {
         return new ArrayList<EquationModel>();
     }
 }
