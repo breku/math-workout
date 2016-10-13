@@ -1,6 +1,7 @@
 package com.breku.math.screen.manager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.breku.math.MyGdxGame;
 import com.breku.math.game.GameScreen;
 import com.breku.math.googleplay.GoogleApiService;
@@ -18,9 +19,9 @@ public class ScreenManager {
 
     private final AbstractScreen menuScreen, gameScreen;
 
-    public ScreenManager(GoogleApiService googleApiService, TextureManager textureManager) {
-        menuScreen = new MainMenuScreen(googleApiService, textureManager);
-        gameScreen = new GameScreen(googleApiService, textureManager);
+    public ScreenManager(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
+        menuScreen = new MainMenuScreen(googleApiService, assetManagerWrapper);
+        gameScreen = new GameScreen(googleApiService, assetManagerWrapper);
     }
 
     public AbstractScreen getInitScreen() {
@@ -34,6 +35,7 @@ public class ScreenManager {
             disposeCurrentScreen(currentScreen);
             final Map<String, Object> previousScreenAdditionalData = currentScreen.getAdditionalData();
             changeScreen(myGdxGame, targetScreenType, previousScreenAdditionalData);
+            Gdx.app.log(TAG, "<< Changing screen finished");
         }
     }
 

@@ -8,14 +8,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.breku.math.googleplay.GoogleApiService;
 import com.breku.math.screen.AbstractScreen;
 import com.breku.math.screen.manager.ScreenManager;
-import com.breku.math.screen.manager.TextureManager;
+import com.breku.math.screen.manager.AssetManagerWrapper;
 
 public class MyGdxGame extends Game {
     private static final String TAG = "MyGdxGame";
     private final GoogleApiService googleApiService;
     private SpriteBatch batch;
     private AbstractScreen currentScreen;
-    private TextureManager textureManager;
+    private AssetManagerWrapper assetManagerWrapper;
     private ScreenManager screenManager;
 
     public MyGdxGame(GoogleApiService googleApiService) {
@@ -34,8 +34,8 @@ public class MyGdxGame extends Game {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
         batch = new SpriteBatch();
-        textureManager = new TextureManager();
-        screenManager = new ScreenManager(googleApiService, textureManager);
+        assetManagerWrapper = new AssetManagerWrapper();
+        screenManager = new ScreenManager(googleApiService, assetManagerWrapper);
 
         Gdx.app.log(TAG, "<< Initializing app finished");
     }
@@ -49,7 +49,7 @@ public class MyGdxGame extends Game {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if (textureManager.update()) {
+        if (assetManagerWrapper.update()) {
 
             if (currentScreen == null) {
                 currentScreen = screenManager.getInitScreen();

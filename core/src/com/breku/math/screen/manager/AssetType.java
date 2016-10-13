@@ -1,9 +1,12 @@
 package com.breku.math.screen.manager;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
 /**
  * Created by brekol on 13.10.16.
  */
-public enum TextureType {
+public enum AssetType {
 
     /**
      * Main Menu
@@ -24,13 +27,29 @@ public enum TextureType {
     /**
      * COMMON
      */
-    BLACKBOARD_TEXTURE("gfx/common/blackboard.jpg");
+    BLACKBOARD_TEXTURE("gfx/common/blackboard.jpg"),
+
+
+    /**
+     * Fonts
+     */
+    COMIC_SANS_FONT("fonts/comic.fnt", BitmapFont.class);
 
 
     private final String key;
+    private final Class clazz;
 
-    TextureType(String key) {
+    AssetType(final String key) {
+        this(key, Texture.class);
+    }
+
+    AssetType(final String key, final Class clazz) {
         this.key = key;
+        this.clazz = clazz;
+    }
+
+    public Class getClazz() {
+        return clazz;
     }
 
     public String getKey() {
