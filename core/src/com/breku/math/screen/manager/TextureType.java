@@ -5,12 +5,26 @@ package com.breku.math.screen.manager;
  */
 public enum TextureType {
 
+    /**
+     * Main Menu
+     */
     QUICK_MATCH_BUTTON_TEXTURE("gfx/menu/play.png"),
     PLAY_WITH_FRIEND_BUTTON_TEXTURE("gfx/menu/play_with_friend.png"),
     INBOX_BUTTON_TEXTURE("gfx/menu/inbox.png"),
     LEADERBOARD_BUTTON_TEXTURE("gfx/menu/leaderboard.png"),
     ACHIEVEMENT_BUTTON_TEXTURE("gfx/menu/achievement.png"),
-    EXIT_BUTTON_TEXTURE("gfx/menu/exit.png");
+    EXIT_BUTTON_TEXTURE("gfx/menu/exit.png"),
+
+    /**
+     * Game
+     */
+    OK_BUTTON_TEXTURE("gfx/game/button_ok.png"),
+    NO_BUTTON_TEXTURE("gfx/game/button_no.png"),
+
+    /**
+     * COMMON
+     */
+    BLACKBOARD_TEXTURE("gfx/common/blackboard.jpg");
 
 
     private final String key;

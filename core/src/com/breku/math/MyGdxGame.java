@@ -37,7 +37,6 @@ public class MyGdxGame extends Game {
         textureManager = new TextureManager();
         screenManager = new ScreenManager(googleApiService, textureManager);
 
-
         Gdx.app.log(TAG, "<< Initializing app finished");
     }
 
@@ -62,5 +61,10 @@ public class MyGdxGame extends Game {
             screenManager.handleTargetScreenType(this, currentScreen);
             batch.end();
         }
+    }
+
+    public void setScreen(final AbstractScreen screen) {
+        super.setScreen(screen);
+        currentScreen = screen;
     }
 }

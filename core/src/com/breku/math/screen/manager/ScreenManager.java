@@ -17,12 +17,10 @@ public class ScreenManager {
     private static final String TAG = "ScreenManager";
 
     private final AbstractScreen menuScreen, gameScreen;
-    private final TextureManager textureManager;
 
-    public ScreenManager(GoogleApiService googleApiService,TextureManager textureManager) {
-        this.textureManager = textureManager;
-        menuScreen = new MainMenuScreen(googleApiService,textureManager);
-        gameScreen = new GameScreen(googleApiService,textureManager);
+    public ScreenManager(GoogleApiService googleApiService, TextureManager textureManager) {
+        menuScreen = new MainMenuScreen(googleApiService, textureManager);
+        gameScreen = new GameScreen(googleApiService, textureManager);
     }
 
     public AbstractScreen getInitScreen() {

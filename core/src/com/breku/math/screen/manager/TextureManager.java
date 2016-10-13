@@ -24,17 +24,14 @@ public class TextureManager {
     private void initialize() {
         assetManager = new AssetManager();
         assetManager.setLoader(Texture.class, new TextureLoader(new InternalFileHandleResolver()));
-        assetManager.load(TextureType.QUICK_MATCH_BUTTON_TEXTURE.getKey(), Texture.class);
-        assetManager.load(TextureType.PLAY_WITH_FRIEND_BUTTON_TEXTURE.getKey(), Texture.class);
-        assetManager.load(TextureType.INBOX_BUTTON_TEXTURE.getKey(), Texture.class);
-        assetManager.load(TextureType.ACHIEVEMENT_BUTTON_TEXTURE.getKey(), Texture.class);
-        assetManager.load(TextureType.LEADERBOARD_BUTTON_TEXTURE.getKey(), Texture.class);
-        assetManager.load(TextureType.EXIT_BUTTON_TEXTURE.getKey(), Texture.class);
+        for (final TextureType textureType : TextureType.values()) {
+            assetManager.load(textureType.getKey(), Texture.class);
+        }
     }
 
     public boolean update() {
         if (!finishedLoading) {
-            Gdx.app.log(TAG, String.format(Locale.ENGLISH, "Loading assets progress=[%2f]", assetManager.getProgress()));
+            Gdx.app.log(TAG, String.format(Locale.ENGLISH, "Loading assets progress=[%.2f%%]", assetManager.getProgress()));
             final boolean update = assetManager.update();
             finishedLoading |= update;
         }
