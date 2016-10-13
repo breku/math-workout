@@ -19,7 +19,7 @@ public class MainMenuStage extends AbstractStage {
     public void initialize() {
         super.initialize();
         playButton = new QuickMatchButton();
-        playWithFriendButton = new PlayWithFriendButton();
+        playWithFriendButton = new PlayWithFriendButton(googleApiService);
         inboxButton = new InboxButton();
         achievementButton = new AchievementButton();
         leaderboardButton = new LeaderboardButton();
@@ -37,9 +37,5 @@ public class MainMenuStage extends AbstractStage {
     public void act(float delta) {
         super.act(delta);
 
-        if (playButton.isClicked()) {
-            playButton.setClicked(false);
-            googleApiService.launchInvitePlayersScreen();
-        }
     }
 }

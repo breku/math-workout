@@ -10,4 +10,11 @@ public class QuickMatchButton extends AbstractMenuButton {
     public QuickMatchButton() {
         super(new Texture("gfx/menu/play.png"), 14, 500);
     }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+
+
+    }
 }

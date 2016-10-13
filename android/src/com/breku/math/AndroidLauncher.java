@@ -57,8 +57,6 @@ public class AndroidLauncher extends AndroidApplication implements GameHelper.Ga
         super.onActivityResult(request, response, data);
         gameHelper.onActivityResult(request, response, data);
         activityResultService.onInvitePlayersScreenActivityResult(request, response, data);
-
-
     }
 
 
