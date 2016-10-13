@@ -1,12 +1,13 @@
 package com.breku.math.game;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.breku.math.game.button.AbstractGameButton;
 import com.breku.math.game.button.ButtonNo;
 import com.breku.math.game.button.ButtonOk;
 import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.screen.manager.AssetType;
 import com.breku.math.stage.AbstractStage;
@@ -57,6 +58,16 @@ public class GameStage extends AbstractStage {
     @Override
     public void act(float delta) {
         super.act(delta);
+    }
+
+    @Override
+    public boolean keyDown(int keyCode) {
+        super.keyDown(keyCode);
+        if (keyCode == Input.Keys.BACK || keyCode == Input.Keys.BACKSPACE) {
+            setTargetScreenType(ScreenType.MENU);
+            return true;
+        }
+        return false;
     }
 
 }

@@ -39,5 +39,6 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
     public void launchQuickGame(LaunchCallback launchCallback) {
         Gdx.app.log(TAG, "launchQuickGame");
         // TODO jbrek createautomach criteria
+        launchCallback.onSucces();
     }
 }
