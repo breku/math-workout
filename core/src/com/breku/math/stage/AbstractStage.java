@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.breku.math.configuration.ContextConstants;
 import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.screen.Background;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.screen.manager.AssetType;
@@ -23,7 +24,6 @@ public abstract class AbstractStage extends Stage {
     protected BitmapFont font;
     private Map<String, Object> additionalData = new HashMap<>();
     private ScreenType targetScreenType = ScreenType.NONE;
-
 
     public AbstractStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         super(new StretchViewport(ContextConstants.SCREEN_WIDTH, ContextConstants.SCREEN_HEIGHT));
@@ -58,6 +58,7 @@ public abstract class AbstractStage extends Stage {
     public void initialize() {
         font = assetManagerWrapper.getFont(AssetType.COMIC_SANS_FONT);
         font.setColor(Color.BLACK);
+        addActor(new Background(assetManagerWrapper.getTexture(AssetType.BLACKBOARD_TEXTURE)));
     }
 
     public abstract void disposeStage();

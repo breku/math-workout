@@ -24,6 +24,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelper.Ga
         super.onCreate(savedInstanceState);
 
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+        config.numSamples = 2;
         googleApiService = new AndroidGoogleApiServiceImpl(this);
         activityResultService = new ActivityResultService(this);
         initialize(new MyGdxGame(googleApiService), config);

@@ -9,6 +9,7 @@ import com.breku.math.game.equation.MathEquation;
 import com.breku.math.game.equation.MathEquationActor;
 import com.breku.math.game.level.GameType;
 import com.breku.math.game.level.LevelDifficulty;
+import com.breku.math.game.progress.ProgressCircle;
 import com.breku.math.googleplay.GoogleApiService;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
@@ -48,13 +49,17 @@ public class GameStage extends AbstractStage {
         mathEquationActors = convertMathEquationsToActors(mathEquations);
 
 
+
         for (final MathEquationActor mathEquationActor : mathEquationActors) {
             addActor(mathEquationActor);
         }
 
+
+        addActor(new ProgressCircle());
         addActor(buttonNo);
         addActor(buttonOk);
     }
+
 
     private List<MathEquation> generateMathEquations() {
         final GameType gameType = (GameType) getAdditionalDataValue(ADDITIONAL_DATA_GAME_TYPE_KEY);
@@ -88,7 +93,7 @@ public class GameStage extends AbstractStage {
     public void act(float delta) {
         super.act(delta);
 
-        if(buttonOk.isClicked()){
+        if (buttonOk.isClicked()) {
             buttonOk.setClicked(false);
             final MathEquationActor currentEquation = mathEquationActors.poll();
             currentEquation.remove();
