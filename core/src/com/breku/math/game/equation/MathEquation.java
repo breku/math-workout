@@ -26,20 +26,24 @@ public class MathEquation {
         this.y = y;
     }
 
-    public Integer getResult() {
-        return result;
-    }
-
-    public void setResult(Integer result) {
-        this.result = result;
-    }
-
     public MathParameter getMathParameter() {
         return mathParameter;
     }
 
     public void setMathParameter(MathParameter mathParameter) {
         this.mathParameter = mathParameter;
+    }
+
+    public String getStringRepresentation() {
+        return String.format("%s %s %s = %s", x, mathParameter.getStringRepresentation(), y, getResult());
+    }
+
+    public Integer getResult() {
+        return result;
+    }
+
+    public void setResult(Integer result) {
+        this.result = result;
     }
 
     public boolean hasValidParameters() {

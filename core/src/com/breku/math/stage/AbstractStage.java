@@ -39,6 +39,10 @@ public abstract class AbstractStage extends Stage {
         this.additionalData = additionalData;
     }
 
+    public Object getAdditionalDataValue(final String key) {
+        return additionalData.get(key);
+    }
+
     public void addAdditionalData(final String key, final Object value) {
         this.additionalData.put(key, value);
     }

@@ -4,9 +4,7 @@ import com.breku.math.game.equation.generator.AbstractEquationGenerator;
 import com.breku.math.game.level.GameType;
 import com.breku.math.game.level.LevelDifficulty;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by brekol on 13.10.16.
