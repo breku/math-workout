@@ -8,11 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.breku.math.core.AbstractActor;
 
 /**
  * Created by brekol on 06.12.15.
  */
-public class AbstractButton extends Actor {
+public class AbstractButton extends AbstractActor {
 
     private static final String TAG = "AbstractButton";
     private final float originalScale;
@@ -28,7 +29,6 @@ public class AbstractButton extends Actor {
         setBounds(actorX, actorY, texture.getWidth(), texture.getHeight());
         setScale(originalScale);
         setOrigin(getWidth() / 2, getHeight() / 2);
-        setDebug(true);
         addListener(new InputListener() {
 
             @Override

@@ -2,15 +2,14 @@ package com.breku.math.screen;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.breku.math.configuration.ContextConstants;
+import com.breku.math.core.AbstractActor;
 
 /**
  * Created by brekol on 15.10.16.
  */
-public class Background extends Actor {
+public class Background extends AbstractActor {
 
     private final TextureRegion textureRegion;
 

@@ -4,8 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.breku.math.game.GameStage;
+import com.breku.math.core.AbstractActor;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,7 +12,7 @@ import java.util.TimerTask;
 /**
  * Created by brekol on 15.10.16.
  */
-public class ProgressCircle extends Actor {
+public class ProgressCircle extends AbstractActor {
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private float degress = 360;

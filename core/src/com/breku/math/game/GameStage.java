@@ -33,6 +33,7 @@ public class GameStage extends AbstractStage {
     private EquationGeneratorService equationGeneratorService;
     private Queue<MathEquationActor> mathEquationActors;
     private ProgressCircle progressCircle;
+    private int score;
 
     public GameStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         super(googleApiService, assetManagerWrapper);
@@ -47,7 +48,7 @@ public class GameStage extends AbstractStage {
         progressCircle = new ProgressCircle(getCamera().combined);
         final List<MathEquation> mathEquations = generateMathEquations();
         mathEquationActors = convertMathEquationsToActors(mathEquations);
-
+        score = 0;
 
         for (final MathEquationActor mathEquationActor : mathEquationActors) {
             addActor(mathEquationActor);
@@ -78,11 +79,16 @@ public class GameStage extends AbstractStage {
     public void disposeStage() {
         buttonOk.remove();
         buttonNo.remove();
+        progressCircle.remove();
     }
 
     @Override
     public void draw() {
         super.draw();
+
+        getBatch().begin();
+        font.draw(getBatch(), "Score: " + score, 100, 600);
+        getBatch().end();
 
     }
 
@@ -93,11 +99,29 @@ public class GameStage extends AbstractStage {
         if (buttonOk.isClicked()) {
             buttonOk.setClicked(false);
             final MathEquationActor currentEquation = mathEquationActors.poll();
+            updateScore(currentEquation, 1, 2);
             currentEquation.remove();
-            for (final MathEquationActor mathEquationActor : mathEquationActors) {
-                mathEquationActor.moveDown();
-            }
+            moveAllEquationsDown();
+        } else if (buttonNo.isClicked()) {
+            buttonNo.setClicked(false);
+            final MathEquationActor currentEquation = mathEquationActors.poll();
+            updateScore(currentEquation, -2, -1);
+            currentEquation.remove();
+            moveAllEquationsDown();
+        }
+    }
 
+    private void updateScore(MathEquationActor currentEquation, int scoreToAddIfCorrectEquation, int scoreToMinusIfWrongEquation) {
+        if (currentEquation.isCorrect()) {
+            score += scoreToAddIfCorrectEquation;
+        } else {
+            score -= scoreToMinusIfWrongEquation;
+        }
+    }
+
+    private void moveAllEquationsDown() {
+        for (final MathEquationActor mathEquationActor : mathEquationActors) {
+            mathEquationActor.moveDown();
         }
     }
 
