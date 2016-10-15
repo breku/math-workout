@@ -5,10 +5,10 @@ import org.mockito.InjectMocks;
 /**
  * Created by brekol on 15.10.16.
  */
-public class AddGeneratorRandomTest extends AbstractGeneratorRandomTest {
+public class SubGeneratorRandomTest extends AbstractGeneratorRandomTest {
 
     @InjectMocks
-    private AddGenerator uut;
+    private SubGenerator uut;
 
     @Override
     protected AbstractEquationGenerator getAbstractEquationGenerator() {
