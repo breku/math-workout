@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.breku.math.game.button.AbstractGameButton;
 import com.breku.math.game.button.ButtonNo;
 import com.breku.math.game.button.ButtonOk;
+import com.breku.math.game.equation.EquationGeneratorService;
 import com.breku.math.googleplay.GoogleApiService;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
@@ -21,7 +22,7 @@ import static com.breku.math.screen.manager.AssetType.OK_BUTTON_TEXTURE;
 public class GameStage extends AbstractStage {
 
     private AbstractGameButton buttonOk, buttonNo;
-    private BitmapFont font;
+    private EquationGeneratorService equationGeneratorService;
 
     public GameStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         super(googleApiService, assetManagerWrapper);
@@ -32,9 +33,8 @@ public class GameStage extends AbstractStage {
         super.initialize();
         buttonNo = new ButtonNo(assetManagerWrapper.getTexture(NO_BUTTON_TEXTURE));
         buttonOk = new ButtonOk(assetManagerWrapper.getTexture(OK_BUTTON_TEXTURE));
+        equationGeneratorService = new EquationGeneratorService();
 
-        font = assetManagerWrapper.getFont(AssetType.COMIC_SANS_FONT);
-        font.setColor(Color.BLACK);
 
         addActor(buttonNo);
         addActor(buttonOk);

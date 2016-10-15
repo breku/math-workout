@@ -1,12 +1,14 @@
 package com.breku.math.stage;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.breku.math.configuration.ContextConstants;
 import com.breku.math.googleplay.GoogleApiService;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
+import com.breku.math.screen.manager.AssetType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +20,8 @@ public abstract class AbstractStage extends Stage {
 
     protected final GoogleApiService googleApiService;
     protected final AssetManagerWrapper assetManagerWrapper;
-    protected Map<String, Object> additionalData = new HashMap<>();
+    protected BitmapFont font;
+    private Map<String, Object> additionalData = new HashMap<>();
     private ScreenType targetScreenType = ScreenType.NONE;
 
 
@@ -36,6 +39,10 @@ public abstract class AbstractStage extends Stage {
         this.additionalData = additionalData;
     }
 
+    public void addAdditionalData(final String key, final Object value) {
+        this.additionalData.put(key, value);
+    }
+
     public ScreenType getTargetScreenType() {
         return targetScreenType;
     }
@@ -45,7 +52,8 @@ public abstract class AbstractStage extends Stage {
     }
 
     public void initialize() {
-        // intentionally left blank
+        font = assetManagerWrapper.getFont(AssetType.COMIC_SANS_FONT);
+        font.setColor(Color.BLACK);
     }
 
     public abstract void disposeStage();

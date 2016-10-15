@@ -29,6 +29,11 @@ public enum AssetType {
      */
     BLACKBOARD_TEXTURE("gfx/common/blackboard.jpg"),
 
+    /**
+     * Game type
+     */
+    GAME_TYPE_PLAY("gfx/gametype/play.png"),
+
 
     /**
      * Fonts

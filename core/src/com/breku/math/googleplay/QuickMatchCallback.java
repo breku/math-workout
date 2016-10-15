@@ -16,7 +16,7 @@ public class QuickMatchCallback implements LaunchCallback {
 
     @Override
     public void onSucces() {
-        stage.setTargetScreenType(ScreenType.GAME);
+        stage.setTargetScreenType(ScreenType.GAME_TYPE);
     }
 
     @Override
