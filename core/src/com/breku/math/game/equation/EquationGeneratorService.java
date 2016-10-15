@@ -1,5 +1,9 @@
 package com.breku.math.game.equation;
 
+import com.breku.math.game.equation.generator.AbstractEquationGenerator;
+import com.breku.math.game.equation.generator.AddGenerator;
+import com.breku.math.game.level.LevelDifficulty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +12,15 @@ import java.util.List;
  */
 public class EquationGeneratorService {
 
-    public List<EquationModel> generateEquations() {
-        return new ArrayList<EquationModel>();
+    private final AbstractEquationGenerator addGenerator = new AddGenerator();
+
+    public List<MathEquation> generateEquations(LevelDifficulty levelDifficulty) {
+        final List<MathEquation> result = new ArrayList<>();
+
+        final MathEquation mathEquation = addGenerator.generateRandomEquation(levelDifficulty);
+
+        return result;
     }
+
+
 }
