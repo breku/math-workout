@@ -44,7 +44,7 @@ public class GameStage extends AbstractStage {
         buttonNo = new ButtonNo(assetManagerWrapper.getTexture(NO_BUTTON_TEXTURE));
         buttonOk = new ButtonOk(assetManagerWrapper.getTexture(OK_BUTTON_TEXTURE));
         equationGeneratorService = new EquationGeneratorService();
-        progressCircle = new ProgressCircle();
+        progressCircle = new ProgressCircle(getCamera().combined);
         final List<MathEquation> mathEquations = generateMathEquations();
         mathEquationActors = convertMathEquationsToActors(mathEquations);
 

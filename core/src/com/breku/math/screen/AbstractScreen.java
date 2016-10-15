@@ -37,6 +37,8 @@ public class AbstractScreen implements Screen {
     public void resize(int width, int height) {
         stage.getViewport().update(width,height);
         stage.getBatch().getProjectionMatrix().setToOrtho2D(0, 0, width, height);
+        stage.getBatch().setProjectionMatrix(stage.getCamera().combined);
+
     }
 
     @Override

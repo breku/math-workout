@@ -3,7 +3,9 @@ package com.breku.math.game.progress;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.breku.math.game.GameStage;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,9 +18,11 @@ public class ProgressCircle extends Actor {
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private float degress = 360;
 
-    public ProgressCircle() {
+    public ProgressCircle(Matrix4 projectionMatrix) {
 
         shapeRenderer.setAutoShapeType(true);
+        shapeRenderer.setProjectionMatrix(projectionMatrix);
+
 
         new Timer().schedule(new ArcTask(), 500, 250);
     }
@@ -40,7 +44,7 @@ public class ProgressCircle extends Actor {
             } else {
                 shapeRenderer.setColor(Color.RED);
             }
-            shapeRenderer.arc(100, 400, 50, 90, degress, 50);
+            shapeRenderer.arc(100, 800, 50, 90, degress, 50);
 
             shapeRenderer.end();
         }
