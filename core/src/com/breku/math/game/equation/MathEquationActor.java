@@ -15,12 +15,10 @@ public class MathEquationActor extends AbstractActor {
     private final BitmapFont bitmapFont;
     private final boolean correct;
 
-    public MathEquationActor(float actorX, float actorY, MathEquation mathEquation, BitmapFont bitmapFont) {
+    public MathEquationActor(MathEquation mathEquation, BitmapFont bitmapFont) {
         this.mathEquation = mathEquation.getStringRepresentation();
         correct = mathEquation.isCorrect();
         this.bitmapFont = bitmapFont;
-
-        setBounds(actorX, actorY, 500, 200);
     }
 
     public boolean isCorrect() {

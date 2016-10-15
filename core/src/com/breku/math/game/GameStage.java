@@ -29,9 +29,11 @@ import static com.breku.math.screen.manager.AssetType.OK_BUTTON_TEXTURE;
  */
 public class GameStage extends AbstractStage {
 
+    private static final int NUMBER_OF_VISIBLE_EQUATIONS = 5;
     private AbstractGameButton buttonOk, buttonNo;
     private EquationGeneratorService equationGeneratorService;
-    private Queue<MathEquationActor> mathEquationActors;
+    private Queue<MathEquationActor> mathEquationActorQueue;
+    private Queue<MathEquationActor> visibleMathEquations;
     private ProgressCircle progressCircle;
     private int score;
 
@@ -47,17 +49,18 @@ public class GameStage extends AbstractStage {
         equationGeneratorService = new EquationGeneratorService();
         progressCircle = new ProgressCircle(getCamera().combined);
         final List<MathEquation> mathEquations = generateMathEquations();
-        mathEquationActors = convertMathEquationsToActors(mathEquations);
+        mathEquationActorQueue = convertMathEquationsToActors(mathEquations);
+        visibleMathEquations = getInitialMathEquations(mathEquationActorQueue);
         score = 0;
 
-        for (final MathEquationActor mathEquationActor : mathEquationActors) {
+
+        for (final MathEquationActor mathEquationActor : visibleMathEquations) {
             addActor(mathEquationActor);
         }
         addActor(progressCircle);
         addActor(buttonNo);
         addActor(buttonOk);
     }
-
 
     private List<MathEquation> generateMathEquations() {
         final GameType gameType = (GameType) getAdditionalDataValue(ADDITIONAL_DATA_GAME_TYPE_KEY);
@@ -67,10 +70,20 @@ public class GameStage extends AbstractStage {
 
     private Queue<MathEquationActor> convertMathEquationsToActors(List<MathEquation> mathEquations) {
         final Queue<MathEquationActor> result = new ArrayDeque<>();
-        int yCounter = 200;
         for (final MathEquation mathEquation : mathEquations) {
-            result.add(new MathEquationActor(600, yCounter, mathEquation, font));
-            yCounter += 200;
+            result.add(new MathEquationActor(mathEquation, font));
+        }
+        return result;
+    }
+
+    private Queue<MathEquationActor> getInitialMathEquations(Queue<MathEquationActor> mathEquationActorQueue) {
+        final Queue<MathEquationActor> result = new ArrayDeque<>();
+        int counterY = 200;
+        for (int i = 0; i < NUMBER_OF_VISIBLE_EQUATIONS; i++) {
+            final MathEquationActor remove = mathEquationActorQueue.remove();
+            remove.setPosition(600, counterY);
+            result.add(remove);
+            counterY += 200;
         }
         return result;
     }
@@ -97,18 +110,21 @@ public class GameStage extends AbstractStage {
         super.act(delta);
 
         if (buttonOk.isClicked()) {
-            buttonOk.setClicked(false);
-            final MathEquationActor currentEquation = mathEquationActors.poll();
-            updateScore(currentEquation, 1, 2);
-            currentEquation.remove();
-            moveAllEquationsDown();
+            handleAfterUserClick(buttonOk, 1, 2);
         } else if (buttonNo.isClicked()) {
-            buttonNo.setClicked(false);
-            final MathEquationActor currentEquation = mathEquationActors.poll();
-            updateScore(currentEquation, -2, -1);
-            currentEquation.remove();
-            moveAllEquationsDown();
+            handleAfterUserClick(buttonNo, -2, -1);
         }
+    }
+
+    private void handleAfterUserClick(AbstractGameButton gameButton, int scoreToAddIfCorrectEquation, int scoreToMinusIfWrongEquation) {
+        gameButton.setClicked(false);
+        final MathEquationActor currentEquation = visibleMathEquations.poll();
+        updateScore(currentEquation, scoreToAddIfCorrectEquation, scoreToMinusIfWrongEquation);
+        currentEquation.remove();
+        final MathEquationActor newEquationFromQueue = getNewEquation();
+        addActor(newEquationFromQueue);
+        visibleMathEquations.add(newEquationFromQueue);
+        moveAllEquationsDown();
     }
 
     private void updateScore(MathEquationActor currentEquation, int scoreToAddIfCorrectEquation, int scoreToMinusIfWrongEquation) {
@@ -119,8 +135,14 @@ public class GameStage extends AbstractStage {
         }
     }
 
+    private MathEquationActor getNewEquation() {
+        final MathEquationActor newEquationFromQueue = mathEquationActorQueue.remove();
+        newEquationFromQueue.setPosition(visibleMathEquations.peek().getX(), 1200);
+        return newEquationFromQueue;
+    }
+
     private void moveAllEquationsDown() {
-        for (final MathEquationActor mathEquationActor : mathEquationActors) {
+        for (final MathEquationActor mathEquationActor : visibleMathEquations) {
             mathEquationActor.moveDown();
         }
     }

@@ -62,4 +62,8 @@ public abstract class AbstractStage extends Stage {
     }
 
     public abstract void disposeStage();
+
+    public void postInitialize(){
+        additionalData.clear();
+    }
 }
