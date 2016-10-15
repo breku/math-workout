@@ -57,7 +57,7 @@ public abstract class AbstractStage extends Stage {
 
     public void initialize() {
         font = assetManagerWrapper.getFont(AssetType.COMIC_SANS_FONT);
-        font.setColor(Color.BLACK);
+        font.setColor(Color.WHITE);
         addActor(new Background(assetManagerWrapper.getTexture(AssetType.BLACKBOARD_TEXTURE)));
     }
 

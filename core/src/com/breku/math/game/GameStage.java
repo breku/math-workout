@@ -29,10 +29,10 @@ import static com.breku.math.screen.manager.AssetType.OK_BUTTON_TEXTURE;
  */
 public class GameStage extends AbstractStage {
 
-    private static final int NUMBER_OF_VISIBLE_EQUATIONS = 5;
     private AbstractGameButton buttonOk, buttonNo;
     private EquationGeneratorService equationGeneratorService;
     private Queue<MathEquationActor> mathEquationActors;
+    private ProgressCircle progressCircle;
 
     public GameStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         super(googleApiService, assetManagerWrapper);
@@ -44,18 +44,15 @@ public class GameStage extends AbstractStage {
         buttonNo = new ButtonNo(assetManagerWrapper.getTexture(NO_BUTTON_TEXTURE));
         buttonOk = new ButtonOk(assetManagerWrapper.getTexture(OK_BUTTON_TEXTURE));
         equationGeneratorService = new EquationGeneratorService();
-
+        progressCircle = new ProgressCircle();
         final List<MathEquation> mathEquations = generateMathEquations();
         mathEquationActors = convertMathEquationsToActors(mathEquations);
-
 
 
         for (final MathEquationActor mathEquationActor : mathEquationActors) {
             addActor(mathEquationActor);
         }
-
-
-        addActor(new ProgressCircle());
+        addActor(progressCircle);
         addActor(buttonNo);
         addActor(buttonOk);
     }

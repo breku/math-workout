@@ -3,8 +3,10 @@ package com.breku.math.game.progress;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by brekol on 15.10.16.
@@ -12,30 +14,45 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class ProgressCircle extends Actor {
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
-
+    private float degress = 360;
 
     public ProgressCircle() {
 
         shapeRenderer.setAutoShapeType(true);
+
+        new Timer().schedule(new ArcTask(), 500, 250);
     }
-
-
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         batch.end();
 
-        shapeRenderer.begin();
-        shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.circle(100, 400, 50);
-        shapeRenderer.setColor(Color.YELLOW);
-        shapeRenderer.arc(100,400,50,0,30,50);
+        if (degress > 0) {
+            shapeRenderer.begin();
+            shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+//        shapeRenderer.circle(100, 400, 50);
 
-        shapeRenderer.end();
+            if (degress > 180) {
+                shapeRenderer.setColor(Color.GREEN);
+            } else if (degress > 90) {
+                shapeRenderer.setColor(Color.YELLOW);
+            } else {
+                shapeRenderer.setColor(Color.RED);
+            }
+            shapeRenderer.arc(100, 400, 50, 90, degress, 50);
 
+            shapeRenderer.end();
+        }
         batch.begin();
 
+    }
+
+    private class ArcTask extends TimerTask {
+
+        @Override
+        public void run() {
+            degress -= 2;
+        }
     }
 }
