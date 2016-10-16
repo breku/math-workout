@@ -1,6 +1,7 @@
 package com.breku.math.mainmenu;
 
 import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.googleplay.LaunchCallback;
 import com.breku.math.googleplay.QuickMatchCallback;
 import com.breku.math.mainmenu.button.*;
 import com.breku.math.screen.manager.AssetManagerWrapper;
@@ -54,6 +55,21 @@ public class MainMenuStage extends AbstractStage {
         if (quickMatchButton.isClicked()) {
             quickMatchButton.setClicked(false);
             googleApiService.launchQuickGame(new QuickMatchCallback(this));
+        }
+
+        if (inboxButton.isClicked()) {
+            inboxButton.setClicked(false);
+            googleApiService.launchInbox(new LaunchCallback() {
+                @Override
+                public void onSucces() {
+
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
         }
 
     }

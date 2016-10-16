@@ -7,6 +7,7 @@ import com.breku.math.googleplay.LaunchCallback;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper;
 
+import static com.breku.math.AndroidConstants.RC_INBOX;
 import static com.breku.math.AndroidConstants.RC_SELECT_PLAYERS;
 
 /**
@@ -40,5 +41,14 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
         Gdx.app.log(TAG, "launchQuickGame");
         // TODO jbrek createautomach criteria
         launchCallback.onSucces();
+    }
+
+    @Override
+    public void launchInbox(LaunchCallback launchCallback) {
+        Gdx.app.log(TAG, "launchInbox");
+        Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(androidLauncher.getGameHelper().getApiClient());
+        androidLauncher.startActivityForResult(intent, RC_INBOX);
+        launchCallback.onSucces();
+
     }
 }

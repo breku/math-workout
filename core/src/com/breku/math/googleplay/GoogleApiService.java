@@ -8,4 +8,7 @@ public interface GoogleApiService {
     void launchInvitePlayersScreen();
 
     void launchQuickGame(LaunchCallback launchCallback);
+
+    void launchInbox(LaunchCallback launchCallback);
+
 }

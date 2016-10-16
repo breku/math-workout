@@ -21,4 +21,10 @@ public class DesktopGoogleApiService implements GoogleApiService {
         Gdx.app.log(TAG, "launchQuickGame");
         launchCallback.onSucces();
     }
+
+    @Override
+    public void launchInbox(LaunchCallback launchCallback) {
+        Gdx.app.log(TAG, "launchInbox");
+        launchCallback.onSucces();
+    }
 }
