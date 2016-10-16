@@ -19,8 +19,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Queue;
 
-import static com.breku.math.configuration.ContextConstants.ADDITIONAL_DATA_GAME_TYPE_KEY;
-import static com.breku.math.configuration.ContextConstants.ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY;
+import static com.breku.math.configuration.ContextConstants.*;
 import static com.breku.math.screen.manager.AssetType.NO_BUTTON_TEXTURE;
 import static com.breku.math.screen.manager.AssetType.OK_BUTTON_TEXTURE;
 
@@ -113,6 +112,11 @@ public class GameStage extends AbstractStage {
             handleAfterUserClick(buttonOk, 1, 2);
         } else if (buttonNo.isClicked()) {
             handleAfterUserClick(buttonNo, -2, -1);
+        }
+
+        if (progressCircle.isGameOver()) {
+            addAdditionalData(ADDITIONAL_DATA_GAME_SCORE, score);
+            setTargetScreenType(ScreenType.END_GAME);
         }
     }
 

@@ -2,6 +2,7 @@ package com.breku.math.screen.manager;
 
 import com.badlogic.gdx.Gdx;
 import com.breku.math.MyGdxGame;
+import com.breku.math.endgame.EndGameScreen;
 import com.breku.math.game.GameScreen;
 import com.breku.math.gametype.GameTypeScreen;
 import com.breku.math.googleplay.GoogleApiService;
@@ -17,12 +18,13 @@ import java.util.Map;
 public class ScreenManager {
     private static final String TAG = "ScreenManager";
 
-    private final AbstractScreen menuScreen, gameScreen, gameTypeScreen;
+    private final AbstractScreen menuScreen, gameScreen, gameTypeScreen, endGameScreen;
 
     public ScreenManager(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         menuScreen = new MainMenuScreen(googleApiService, assetManagerWrapper);
         gameScreen = new GameScreen(googleApiService, assetManagerWrapper);
         gameTypeScreen = new GameTypeScreen(googleApiService, assetManagerWrapper);
+        endGameScreen = new EndGameScreen(googleApiService, assetManagerWrapper);
     }
 
     public AbstractScreen getInitScreen() {
@@ -59,6 +61,8 @@ public class ScreenManager {
             return gameScreen;
         } else if (ScreenType.GAME_TYPE.equals(screenType)) {
             return gameTypeScreen;
+        } else if (ScreenType.END_GAME.equals(screenType)) {
+            return endGameScreen;
         }
         throw new IllegalStateException(String.format("There is no screen type=[%s]", screenType));
     }

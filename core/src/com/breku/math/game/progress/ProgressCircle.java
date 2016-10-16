@@ -34,7 +34,6 @@ public class ProgressCircle extends AbstractActor {
         if (degress > 0) {
             shapeRenderer.begin();
             shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
-//        shapeRenderer.circle(100, 400, 50);
 
             if (degress > 180) {
                 shapeRenderer.setColor(Color.GREEN);
@@ -51,11 +50,15 @@ public class ProgressCircle extends AbstractActor {
 
     }
 
+    public boolean isGameOver() {
+        return degress < 0;
+    }
+
     private class ArcTask extends TimerTask {
 
         @Override
         public void run() {
-            degress -= 2;
+            degress -= 20;
         }
     }
 }

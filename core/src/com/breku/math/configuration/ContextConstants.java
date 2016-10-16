@@ -11,6 +11,8 @@ public final class ContextConstants {
     public static final String ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY = "ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY";
     public static final String ADDITIONAL_DATA_GAME_TYPE_KEY = "ADDITIONAL_DATA_GAME_TYPE_KEY";
 
+    public static final String ADDITIONAL_DATA_GAME_SCORE = "ADDITIONAL_DATA_GAME_SCORE";
+
     private ContextConstants() {
         // to hide
     }
