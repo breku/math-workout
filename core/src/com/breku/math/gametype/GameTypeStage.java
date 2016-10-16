@@ -2,6 +2,7 @@ package com.breku.math.gametype;
 
 import com.badlogic.gdx.Input;
 import com.breku.math.game.level.GameType;
+import com.breku.math.game.level.LevelDifficulty;
 import com.breku.math.googleplay.GoogleApiService;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
@@ -12,7 +13,6 @@ import java.util.List;
 
 import static com.breku.math.configuration.ContextConstants.ADDITIONAL_DATA_GAME_TYPE_KEY;
 import static com.breku.math.configuration.ContextConstants.ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY;
-import static com.breku.math.game.level.LevelDifficulty.*;
 import static com.breku.math.screen.manager.AssetType.GAME_TYPE_PLAY;
 
 /**
@@ -30,14 +30,16 @@ public class GameTypeStage extends AbstractStage {
     public void initialize() {
         super.initialize();
         playButtons = new ArrayList<>();
-        playButtons.add(new PlayButton(assetManagerWrapper.getTexture(GAME_TYPE_PLAY), 200, 600, GameType.ADD, EASY));
-        playButtons.add(new PlayButton(assetManagerWrapper.getTexture(GAME_TYPE_PLAY), 200, 400, GameType.ADD, MEDIUM));
-        playButtons.add(new PlayButton(assetManagerWrapper.getTexture(GAME_TYPE_PLAY), 200, 200, GameType.ADD, HARD));
 
-        playButtons.add(new PlayButton(assetManagerWrapper.getTexture(GAME_TYPE_PLAY), 800, 600, GameType.SUB, EASY));
-        playButtons.add(new PlayButton(assetManagerWrapper.getTexture(GAME_TYPE_PLAY), 800, 400, GameType.SUB, MEDIUM));
-        playButtons.add(new PlayButton(assetManagerWrapper.getTexture(GAME_TYPE_PLAY), 800, 200, GameType.SUB, HARD));
-
+        int x = 200;
+        for (final LevelDifficulty levelDifficulty : LevelDifficulty.values()) {
+            int y = 700;
+            for (final GameType gameType : GameType.values()) {
+                playButtons.add(new PlayButton(assetManagerWrapper.getTexture(GAME_TYPE_PLAY), x, y, gameType, levelDifficulty));
+                y -= 200;
+            }
+            x += 500;
+        }
 
         for (PlayButton playButton : playButtons) {
             addActor(playButton);

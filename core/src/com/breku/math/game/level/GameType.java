@@ -1,8 +1,6 @@
 package com.breku.math.game.level;
 
-import com.breku.math.game.equation.generator.AbstractEquationGenerator;
-import com.breku.math.game.equation.generator.AddGenerator;
-import com.breku.math.game.equation.generator.SubGenerator;
+import com.breku.math.game.equation.generator.*;
 
 /**
  * Created by brekol on 15.10.16.
@@ -11,7 +9,10 @@ public enum GameType {
 
 
     ADD(new AddGenerator()),
-    SUB(new SubGenerator());
+    SUB(new SubGenerator()),
+    MUL(new MulGenerator()),
+    DIV(new DivGenerator()),
+    ALL(new AddGenerator(), new SubGenerator(), new MulGenerator(), new DivGenerator());
 
 
     private final AbstractEquationGenerator[] generators;

@@ -49,7 +49,7 @@ public class MathEquation {
     public boolean hasValidParameters() {
         switch (mathParameter) {
             case DIV:
-                return x % y == 0 && y != 0;
+                return y != 0 && x % y == 0;
         }
         return true;
     }
