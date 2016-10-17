@@ -1,7 +1,7 @@
 package com.breku.math.mainmenu.button;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.integration.GoogleApiService;
 
 /**
  * Created by brekol on 13.10.16.

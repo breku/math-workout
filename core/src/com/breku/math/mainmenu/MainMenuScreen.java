@@ -1,7 +1,6 @@
 package com.breku.math.mainmenu;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.integration.GoogleApiService;
 import com.breku.math.screen.AbstractScreen;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 

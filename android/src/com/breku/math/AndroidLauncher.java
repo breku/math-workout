@@ -6,7 +6,10 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.integration.GoogleApiService;
+import com.breku.math.multiplayer.result.ActivityResultService;
+import com.breku.math.multiplayer.AndroidGoogleApiServiceImpl;
+import com.breku.math.multiplayer.MatchService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.example.games.basegameutils.GameHelper;
@@ -18,6 +21,7 @@ public class AndroidLauncher extends AndroidApplication implements GameHelper.Ga
 
     private GoogleApiService googleApiService;
     private ActivityResultService activityResultService;
+    private MatchService matchService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +29,9 @@ public class AndroidLauncher extends AndroidApplication implements GameHelper.Ga
 
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         config.numSamples = 2;
-        googleApiService = new AndroidGoogleApiServiceImpl(this);
-        activityResultService = new ActivityResultService(this);
+        matchService = new MatchService(this);
+        googleApiService = new AndroidGoogleApiServiceImpl(this,matchService);
+        activityResultService = new ActivityResultService(this, matchService);
         initialize(new MyGdxGame(googleApiService), config);
 
         if (gameHelper == null) {

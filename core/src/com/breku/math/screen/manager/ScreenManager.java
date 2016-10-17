@@ -5,7 +5,7 @@ import com.breku.math.MyGdxGame;
 import com.breku.math.endgame.EndGameScreen;
 import com.breku.math.game.GameScreen;
 import com.breku.math.gametype.GameTypeScreen;
-import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.integration.GoogleApiService;
 import com.breku.math.mainmenu.MainMenuScreen;
 import com.breku.math.screen.AbstractScreen;
 import com.breku.math.screen.ScreenType;

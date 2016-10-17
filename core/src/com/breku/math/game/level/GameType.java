@@ -7,7 +7,6 @@ import com.breku.math.game.equation.generator.*;
  */
 public enum GameType {
 
-
     ADD(new AddGenerator()),
     SUB(new SubGenerator()),
     MUL(new MulGenerator()),

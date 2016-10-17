@@ -1,8 +1,8 @@
 package com.breku.math.desktop;
 
 import com.badlogic.gdx.Gdx;
-import com.breku.math.googleplay.GoogleApiService;
-import com.breku.math.googleplay.LaunchCallback;
+import com.breku.math.integration.GoogleApiService;
+import com.breku.math.integration.LaunchCallback;
 
 /**
  * Created by brekol on 10.10.16.

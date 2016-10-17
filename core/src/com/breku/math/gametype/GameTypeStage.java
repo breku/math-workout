@@ -3,7 +3,9 @@ package com.breku.math.gametype;
 import com.badlogic.gdx.Input;
 import com.breku.math.game.level.GameType;
 import com.breku.math.game.level.LevelDifficulty;
-import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.integration.GoogleApiService;
+import com.breku.math.integration.IntegrationCallbackModel;
+import com.breku.math.integration.QuickMatchCallback;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.stage.AbstractStage;
@@ -73,9 +75,15 @@ public class GameTypeStage extends AbstractStage {
                 playButton.setClicked(false);
                 addAdditionalData(ADDITIONAL_DATA_GAME_TYPE_KEY, playButton.getGameType());
                 addAdditionalData(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY, playButton.getLevelDifficulty());
-                setTargetScreenType(ScreenType.GAME);
+                final IntegrationCallbackModel callbackModel = new IntegrationCallbackModel(playButton.getLevelDifficulty(), playButton.getGameType());
+                googleApiService.launchQuickGame(new QuickMatchCallback(this, callbackModel));
             }
         }
+
+
+//        if (integrationCallbackModel.getScreenType() != null) {
+//            setTargetScreenType(integrationCallbackModel.getScreenType());
+//        }
     }
 
     @Override

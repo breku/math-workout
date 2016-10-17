@@ -1,6 +1,6 @@
 package com.breku.math.gametype;
 
-import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.integration.GoogleApiService;
 import com.breku.math.screen.AbstractScreen;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 

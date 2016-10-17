@@ -54,6 +54,7 @@ project(":android") {
         compile project(":core")
         compile project(":BaseGameUtils")
 
+
 //        compile "com.google.android.gms:play-services-games:${gms_library_version}"
 //        compile "com.google.android.gms:play-services-plus:${gms_library_version}"
 

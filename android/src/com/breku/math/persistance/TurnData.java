@@ -1,6 +1,8 @@
 package com.breku.math.persistance;
 
 import android.util.Log;
+import com.breku.math.game.level.GameType;
+import com.breku.math.game.level.LevelDifficulty;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +17,8 @@ public class TurnData {
     private static final String TAG = "TurnData";
     public String data = "";
     public int turnCounter;
-
+    public LevelDifficulty levelDifficulty;
+    public GameType gameType;
 
     // Creates a new instance of TurnData.
     static public TurnData unpersist(byte[] byteArray) {
@@ -46,6 +49,15 @@ public class TurnData {
             if (obj.has("turnCounter")) {
                 retVal.turnCounter = obj.getInt("turnCounter");
             }
+            if (obj.has("levelDifficulty")) {
+                final int levelDifficultyOrdinal = obj.getInt("levelDifficulty");
+                retVal.levelDifficulty = LevelDifficulty.values()[levelDifficultyOrdinal];
+
+            }
+            if (obj.has("gameType")) {
+                final int gameTypeOrdinal = obj.getInt("gameType");
+                retVal.gameType = GameType.values()[gameTypeOrdinal];
+            }
 
         } catch (JSONException e) {
             Log.e(TAG, "Error during getting data from json. " + e.getMessage(), e);
@@ -62,6 +74,8 @@ public class TurnData {
         try {
             retVal.put("data", data);
             retVal.put("turnCounter", turnCounter);
+            retVal.put("levelDifficulty", levelDifficulty.ordinal());
+            retVal.put("gameType", gameType.ordinal());
 
         } catch (JSONException e) {
             Log.e(TAG, "Error during persisting turn data. " + e.getMessage(), e);

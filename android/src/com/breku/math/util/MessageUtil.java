@@ -9,6 +9,11 @@ import android.content.DialogInterface;
  */
 public class MessageUtil {
 
+
+    public static void showWarning(String message, Context context) {
+        showWarning("Warning", message, context);
+    }
+
     // Generic warning/info dialog
     public static void showWarning(String title, String message, Context context) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);

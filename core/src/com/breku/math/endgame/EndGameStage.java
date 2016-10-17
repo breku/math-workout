@@ -1,7 +1,7 @@
 package com.breku.math.endgame;
 
 import com.breku.math.configuration.ContextConstants;
-import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.integration.GoogleApiService;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.stage.AbstractStage;

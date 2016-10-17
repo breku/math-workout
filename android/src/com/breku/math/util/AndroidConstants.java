@@ -1,4 +1,4 @@
-package com.breku.math;
+package com.breku.math.util;
 
 /**
  * Created by brekol on 11.10.16.

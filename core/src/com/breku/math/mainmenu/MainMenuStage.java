@@ -1,9 +1,9 @@
 package com.breku.math.mainmenu;
 
-import com.breku.math.googleplay.GoogleApiService;
-import com.breku.math.googleplay.LaunchCallback;
-import com.breku.math.googleplay.QuickMatchCallback;
+import com.breku.math.integration.GoogleApiService;
+import com.breku.math.integration.QuickMatchCallback;
 import com.breku.math.mainmenu.button.*;
+import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.stage.AbstractStage;
 
@@ -29,7 +29,6 @@ public class MainMenuStage extends AbstractStage {
         achievementButton = new AchievementButton(assetManagerWrapper.getTexture(ACHIEVEMENT_BUTTON_TEXTURE));
         leaderboardButton = new LeaderboardButton(assetManagerWrapper.getTexture(LEADERBOARD_BUTTON_TEXTURE));
         exitButton = new ExitButton(assetManagerWrapper.getTexture(EXIT_BUTTON_TEXTURE));
-
         addActor(quickMatchButton);
         addActor(playWithFriendButton);
         addActor(inboxButton);
@@ -54,23 +53,17 @@ public class MainMenuStage extends AbstractStage {
 
         if (quickMatchButton.isClicked()) {
             quickMatchButton.setClicked(false);
-            googleApiService.launchQuickGame(new QuickMatchCallback(this));
+            setTargetScreenType(ScreenType.GAME_TYPE);
         }
 
         if (inboxButton.isClicked()) {
             inboxButton.setClicked(false);
-            googleApiService.launchInbox(new LaunchCallback() {
-                @Override
-                public void onSucces() {
-
-                }
-
-                @Override
-                public void onFailure() {
-
-                }
-            });
+            googleApiService.launchInbox(new QuickMatchCallback(this, null));
         }
+
+//        if (integrationCallbackModel.getScreenType() != null) {
+//            setTargetScreenType(integrationCallbackModel.getScreenType());
+//        }
 
     }
 }

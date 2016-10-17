@@ -10,7 +10,7 @@ import com.breku.math.game.equation.MathEquationActor;
 import com.breku.math.game.level.GameType;
 import com.breku.math.game.level.LevelDifficulty;
 import com.breku.math.game.progress.ProgressCircle;
-import com.breku.math.googleplay.GoogleApiService;
+import com.breku.math.integration.GoogleApiService;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.stage.AbstractStage;
