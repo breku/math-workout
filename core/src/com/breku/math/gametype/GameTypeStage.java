@@ -77,6 +77,7 @@ public class GameTypeStage extends AbstractStage {
                 addAdditionalData(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY, playButton.getLevelDifficulty());
                 final IntegrationCallbackModel callbackModel = new IntegrationCallbackModel(playButton.getLevelDifficulty(), playButton.getGameType());
                 googleApiService.launchQuickGame(new QuickMatchCallback(this, callbackModel));
+                setTargetScreenType(ScreenType.LOADING);
             }
         }
 

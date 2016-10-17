@@ -9,8 +9,15 @@ import static org.junit.Assert.*;
  */
 public class EquationGeneratorServiceTest {
 
+    private class TestClass {
+
+    }
+
     @Test
     public void test(){
-
+        TestClass testClass = new TestClass();
+        TestClass testClass2 = testClass;
+        testClass2 = null;
+        System.out.println(testClass);
     }
 }

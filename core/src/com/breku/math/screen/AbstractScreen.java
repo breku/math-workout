@@ -2,7 +2,6 @@ package com.breku.math.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.breku.math.stage.AbstractStage;
 
 import java.util.Map;
@@ -14,7 +13,6 @@ public class AbstractScreen implements Screen {
 
 
     protected final AbstractStage stage;
-
 
     protected AbstractScreen(AbstractStage stage) {
         this.stage = stage;
@@ -36,7 +34,7 @@ public class AbstractScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width,height);
+        stage.getViewport().update(width, height);
         stage.getBatch().getProjectionMatrix().setToOrtho2D(0, 0, width, height);
         stage.getBatch().setProjectionMatrix(stage.getCamera().combined);
 
