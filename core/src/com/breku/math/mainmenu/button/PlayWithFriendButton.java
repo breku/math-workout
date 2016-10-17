@@ -8,11 +8,9 @@ import com.breku.math.integration.GoogleApiService;
  */
 public class PlayWithFriendButton extends AbstractMenuButton {
 
-    private final GoogleApiService googleApiService;
 
-    public PlayWithFriendButton(Texture texture,GoogleApiService googleApiService) {
+    public PlayWithFriendButton(Texture texture) {
         super(texture, 600, 500);
-        this.googleApiService = googleApiService;
     }
 
     @Override
@@ -20,7 +18,6 @@ public class PlayWithFriendButton extends AbstractMenuButton {
         super.act(delta);
         if (isClicked()) {
             setClicked(false);
-            googleApiService.launchInvitePlayersScreen();
         }
     }
 }

@@ -24,7 +24,7 @@ public class MainMenuStage extends AbstractStage {
     public void initialize() {
         super.initialize();
         quickMatchButton = new QuickMatchButton(assetManagerWrapper.getTexture(QUICK_MATCH_BUTTON_TEXTURE));
-        playWithFriendButton = new PlayWithFriendButton(assetManagerWrapper.getTexture(PLAY_WITH_FRIEND_BUTTON_TEXTURE), googleApiService);
+        playWithFriendButton = new PlayWithFriendButton(assetManagerWrapper.getTexture(PLAY_WITH_FRIEND_BUTTON_TEXTURE));
         inboxButton = new InboxButton(assetManagerWrapper.getTexture(INBOX_BUTTON_TEXTURE));
         achievementButton = new AchievementButton(assetManagerWrapper.getTexture(ACHIEVEMENT_BUTTON_TEXTURE));
         leaderboardButton = new LeaderboardButton(assetManagerWrapper.getTexture(LEADERBOARD_BUTTON_TEXTURE));
