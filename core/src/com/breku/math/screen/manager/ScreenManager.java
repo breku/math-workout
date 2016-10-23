@@ -37,27 +37,25 @@ public class ScreenManager {
 
     public void handleTargetScreenType(MyGdxGame myGdxGame, AbstractScreen currentScreen) {
         final ScreenType targetScreenType = currentScreen.getTargetScreenType();
-        handleSetupPreviousScreenBeforeLoading(currentScreen, targetScreenType);
+        handleSetupPreviousScreenBeforeLoading(myGdxGame,currentScreen, targetScreenType);
 
-//
-//
-//
-//        if (previousScreenBeforeLoading != null && !ScreenType.LOADING.equals(targetScreenType)) {
-//            final ScreenType targetScreenTypeFromLoading = previousScreenBeforeLoading.getTargetScreenType();
-//            if (!ScreenType.NONE.equals(targetScreenTypeFromLoading)) {
-//                changeScreen(myGdxGame, currentScreen, targetScreenTypeFromLoading);
-//                previousScreenBeforeLoading = null;
-//            }
-//        }
-
-        if (!ScreenType.NONE.equals(targetScreenType)) {
+        if (previousScreenBeforeLoading != null) {
+            final ScreenType targetScreenTypeFromLoading = previousScreenBeforeLoading.getTargetScreenType();
+            if (!ScreenType.NONE.equals(targetScreenTypeFromLoading) & !ScreenType.LOADING.equals(targetScreenTypeFromLoading)) {
+                changeScreen(myGdxGame, currentScreen, targetScreenTypeFromLoading);
+                previousScreenBeforeLoading.dispose();
+                previousScreenBeforeLoading = null;
+            }
+        } else if (!ScreenType.NONE.equals(targetScreenType)) {
             changeScreen(myGdxGame, currentScreen, targetScreenType);
         }
+
     }
 
-    private void handleSetupPreviousScreenBeforeLoading(AbstractScreen currentScreen, ScreenType targetScreenType) {
+    private void handleSetupPreviousScreenBeforeLoading(MyGdxGame myGdxGame, AbstractScreen currentScreen, ScreenType targetScreenType) {
         if (ScreenType.LOADING.equals(targetScreenType)) {
             previousScreenBeforeLoading = currentScreen;
+            changeScreen(myGdxGame, currentScreen, targetScreenType);
         }
     }
 
