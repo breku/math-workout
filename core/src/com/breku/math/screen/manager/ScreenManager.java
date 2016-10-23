@@ -11,6 +11,7 @@ import com.breku.math.mainmenu.MainMenuScreen;
 import com.breku.math.screen.AbstractScreen;
 import com.breku.math.screen.ScreenType;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -36,28 +37,49 @@ public class ScreenManager {
     }
 
     public void handleTargetScreenType(MyGdxGame myGdxGame, AbstractScreen currentScreen) {
+
+
+        final ScreenType targetScreenType = getTargetScreenType(currentScreen);
+        if (!ScreenType.NONE.equals(targetScreenType)) {
+            changeScreen(myGdxGame, currentScreen, targetScreenType);
+        }
+
+
+    }
+
+    private ScreenType getTargetScreenType(AbstractScreen currentScreen) {
         final ScreenType targetScreenType = currentScreen.getTargetScreenType();
-        handleSetupPreviousScreenBeforeLoading(myGdxGame,currentScreen, targetScreenType);
+        if (targetScreenType.equals(ScreenType.LOADING)) {
+            previousScreenBeforeLoading = currentScreen;
+            return targetScreenType;
+        }
+
+        if (currentScreen.backKeyPressed()) {
+            if (previousScreenBeforeLoading != null) {
+                previousScreenBeforeLoading.addAdditionalDataSuccessCallbackFail();
+            }
+            disposePreviousScreenBeforeLoadingIfPossible();
+            return targetScreenType;
+        }
 
         if (previousScreenBeforeLoading != null) {
-            final ScreenType targetScreenTypeFromLoading = previousScreenBeforeLoading.getTargetScreenType();
-            if (!ScreenType.NONE.equals(targetScreenTypeFromLoading) & !ScreenType.LOADING.equals(targetScreenTypeFromLoading)) {
-                changeScreen(myGdxGame, currentScreen, targetScreenTypeFromLoading);
-                previousScreenBeforeLoading.dispose();
-                previousScreenBeforeLoading = null;
+            final ScreenType targetScreenTypeFromPrevious = previousScreenBeforeLoading.getTargetScreenType();
+            if (!ScreenType.NONE.equals(targetScreenTypeFromPrevious) & !ScreenType.LOADING.equals(targetScreenTypeFromPrevious)) {
+                currentScreen.setAdditionalData(new HashMap<>(previousScreenBeforeLoading.getAdditionalData()));
+                disposePreviousScreenBeforeLoadingIfPossible();
+                return targetScreenTypeFromPrevious;
             }
-        } else if (!ScreenType.NONE.equals(targetScreenType)) {
-            changeScreen(myGdxGame, currentScreen, targetScreenType);
         }
-
+        return targetScreenType;
     }
 
-    private void handleSetupPreviousScreenBeforeLoading(MyGdxGame myGdxGame, AbstractScreen currentScreen, ScreenType targetScreenType) {
-        if (ScreenType.LOADING.equals(targetScreenType)) {
-            previousScreenBeforeLoading = currentScreen;
-            changeScreen(myGdxGame, currentScreen, targetScreenType);
+    private void disposePreviousScreenBeforeLoadingIfPossible() {
+        if (previousScreenBeforeLoading != null) {
+            previousScreenBeforeLoading.dispose();
+            previousScreenBeforeLoading = null;
         }
     }
+
 
     private void changeScreen(MyGdxGame myGdxGame, AbstractScreen currentScreen, ScreenType targetScreenType) {
         Gdx.app.log(TAG, ">> Changing screen to=" + targetScreenType.name());
@@ -69,7 +91,7 @@ public class ScreenManager {
 
     private void setupCurrentScreen(MyGdxGame myGdxGame, ScreenType targetScreenType, Map<String, Object> previousScreenAdditionalData) {
         final AbstractScreen newScreen = getTargetScreen(targetScreenType);
-        newScreen.setAdditionalData(previousScreenAdditionalData);
+        newScreen.setAdditionalData(new HashMap<>(previousScreenAdditionalData));
         myGdxGame.setScreen(newScreen);
     }
 

@@ -2,6 +2,7 @@ package com.breku.math.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.breku.math.configuration.ContextConstants;
 import com.breku.math.stage.AbstractStage;
 
 import java.util.Map;
@@ -71,5 +72,14 @@ public class AbstractScreen implements Screen {
 
     public void setAdditionalData(Map<String, Object> additionalData) {
         this.stage.setAdditionalData(additionalData);
+    }
+
+    public void addAdditionalDataSuccessCallbackFail() {
+        this.stage.addAdditionalData(ContextConstants.ADDITIONAL_DATA_CALLBACK_SHOULD_FAIL, true);
+    }
+
+    public boolean backKeyPressed() {
+        final Object keyPressed = stage.getAdditionalDataValue(ContextConstants.ADDITIONAL_BACK_KEY_CLICKED);
+        return keyPressed != null && (boolean) keyPressed;
     }
 }

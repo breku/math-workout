@@ -14,6 +14,8 @@ import java.util.TimerTask;
  */
 public class ProgressCircle extends AbstractActor {
 
+    private static final int DELAY_IN_MILISEC = 500;
+    private static final int INTERVAL_IN_MILISEC = 250;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private float degress = 360;
 
@@ -23,7 +25,7 @@ public class ProgressCircle extends AbstractActor {
         shapeRenderer.setProjectionMatrix(projectionMatrix);
 
 
-        new Timer().schedule(new ArcTask(), 500, 250);
+        new Timer().schedule(new ArcTask(), DELAY_IN_MILISEC, INTERVAL_IN_MILISEC);
     }
 
     @Override

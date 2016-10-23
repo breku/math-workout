@@ -39,6 +39,7 @@ public class MainMenuStage extends AbstractStage {
 
     @Override
     public void disposeStage() {
+        super.disposeStage();
         quickMatchButton.remove();
         playWithFriendButton.remove();
         inboxButton.remove();

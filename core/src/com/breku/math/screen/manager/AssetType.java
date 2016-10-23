@@ -38,7 +38,8 @@ public enum AssetType {
     /**
      * Fonts
      */
-    COMIC_SANS_FONT("fonts/comic.fnt", BitmapFont.class);
+    COMIC_SANS_FONT("fonts/comic.fnt", BitmapFont.class),
+    COMIC_SANS_FONT_BIG("fonts/comic-s68.fnt", BitmapFont.class);
 
 
     private final String key;
