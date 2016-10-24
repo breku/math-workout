@@ -2,7 +2,7 @@ package com.breku.math.endgame;
 
 import com.badlogic.gdx.Gdx;
 import com.breku.math.integration.AbstractGoogleCallback;
-import com.breku.math.integration.IntegrationCallbackModel;
+import com.breku.math.integration.GameIntegrationCallbackValue;
 
 /**
  * Created by brekol on 24.10.16.
@@ -11,7 +11,7 @@ public class TakeTurnCallback extends AbstractGoogleCallback {
 
     private static final String TAG = "TakeTurnCallback";
 
-    public TakeTurnCallback(IntegrationCallbackModel callbackModel) {
+    public TakeTurnCallback(GameIntegrationCallbackValue callbackModel) {
         super(callbackModel);
     }
 

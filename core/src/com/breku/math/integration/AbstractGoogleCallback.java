@@ -3,21 +3,25 @@ package com.breku.math.integration;
 /**
  * Created by brekol on 24.10.16.
  */
-public abstract class AbstractGoogleCallback implements GoogleCallback {
+public abstract class AbstractGoogleCallback<T> implements GoogleCallback<T> {
 
-    protected IntegrationCallbackModel callbackModel;
+    protected T callbackModel;
 
-    public AbstractGoogleCallback(IntegrationCallbackModel callbackModel) {
+    public AbstractGoogleCallback() {
+        // default one
+    }
+
+    public AbstractGoogleCallback(T callbackModel) {
         this.callbackModel = callbackModel;
     }
 
     @Override
-    public IntegrationCallbackModel getIntegrationCallbackModel() {
+    public T getCallbackValue() {
         return callbackModel;
     }
 
     @Override
-    public void setIntegrationCallbackModel(IntegrationCallbackModel callbackModel) {
+    public void setCallbackValue(T callbackModel) {
         this.callbackModel = callbackModel;
     }
 }

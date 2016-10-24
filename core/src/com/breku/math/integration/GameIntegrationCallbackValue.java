@@ -6,9 +6,9 @@ import com.breku.math.game.level.LevelDifficulty;
 /**
  * Created by brekol on 17.10.16.
  */
-public class IntegrationCallbackModel {
+public class GameIntegrationCallbackValue {
 
-    public IntegrationCallbackModel(LevelDifficulty levelDifficulty, GameType gameType) {
+    public GameIntegrationCallbackValue(LevelDifficulty levelDifficulty, GameType gameType) {
         this.levelDifficulty = levelDifficulty;
         this.gameType = gameType;
     }

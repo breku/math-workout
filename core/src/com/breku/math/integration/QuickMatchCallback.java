@@ -9,13 +9,13 @@ import static com.breku.math.configuration.ContextConstants.*;
 /**
  * Created by brekol on 13.10.16.
  */
-public class QuickMatchCallback extends AbstractGoogleCallback {
+public class QuickMatchCallback extends AbstractGoogleCallback<GameIntegrationCallbackValue> {
 
     private static final String TAG = "QuickMatchCallback";
 
     private final AbstractStage stage;
 
-    public QuickMatchCallback(AbstractStage stage, IntegrationCallbackModel callbackModel) {
+    public QuickMatchCallback(AbstractStage stage, GameIntegrationCallbackValue callbackModel) {
         super(callbackModel);
         this.stage = stage;
     }

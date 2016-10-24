@@ -2,7 +2,7 @@ package com.breku.math.endgame;
 
 import com.breku.math.configuration.ContextConstants;
 import com.breku.math.integration.GoogleApiService;
-import com.breku.math.integration.IntegrationCallbackModel;
+import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.stage.AbstractStage;
@@ -47,7 +47,7 @@ public class EndGameStage extends AbstractStage {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        googleApiService.takeTurn(new TakeTurnCallback(new IntegrationCallbackModel(null, null)));
+        googleApiService.takeTurn(new TakeTurnCallback(new GameIntegrationCallbackValue(null, null)));
         setTargetScreenType(ScreenType.MENU);
         return true;
     }

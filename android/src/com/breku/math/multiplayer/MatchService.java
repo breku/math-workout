@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import com.breku.math.AndroidLauncher;
-import com.breku.math.integration.IntegrationCallbackModel;
+import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleCallback;
 import com.breku.math.persistance.TurnData;
 import com.google.android.gms.common.api.ResultCallback;
@@ -39,7 +39,7 @@ public class MatchService {
         this.androidLauncher = androidLauncher;
     }
 
-    public void processResult(TurnBasedMultiplayer.InitiateMatchResult result, GoogleCallback googleCallback) {
+    public void processResult(TurnBasedMultiplayer.InitiateMatchResult result, GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
         TurnBasedMatch match = result.getMatch();
 
         if (!checkStatusCode(match, result.getStatus().getStatusCode())) {
@@ -112,8 +112,8 @@ public class MatchService {
                 mTurnData = TurnData.unpersist(mMatch.getData());
                 Log.e(TAG, "setGameplayUI");
                 final GoogleCallback correctGoogleCallback = getCorrectLaunchCallback(googleCallback);
-                IntegrationCallbackModel callbackModel = new IntegrationCallbackModel(mTurnData.levelDifficulty, mTurnData.gameType);
-                correctGoogleCallback.setIntegrationCallbackModel(callbackModel);
+                GameIntegrationCallbackValue callbackModel = new GameIntegrationCallbackValue(mTurnData.levelDifficulty, mTurnData.gameType);
+                correctGoogleCallback.setCallbackValue(callbackModel);
                 correctGoogleCallback.onSucces();
 
                 return;
@@ -135,11 +135,11 @@ public class MatchService {
     // game, saving our initial state. Calling takeTurn() will
     // callback to OnTurnBasedMatchUpdated(), which will show the game
     // UI.
-    public void startMatch(TurnBasedMatch match, final GoogleCallback googleCallback) {
+    public void startMatch(TurnBasedMatch match, final GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
         mTurnData = new TurnData();
         // Some basic turn data
         mTurnData.data = "First turn";
-        final IntegrationCallbackModel callbackModel = googleCallback.getIntegrationCallbackModel();
+        final GameIntegrationCallbackValue callbackModel = googleCallback.getCallbackValue();
         mTurnData.levelDifficulty = callbackModel.getLevelDifficulty();
         mTurnData.gameType = callbackModel.getGameType();
 

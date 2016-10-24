@@ -1,6 +1,7 @@
 package com.breku.math.desktop;
 
 import com.badlogic.gdx.Gdx;
+import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.GoogleCallback;
 
@@ -17,7 +18,7 @@ public class DesktopGoogleApiService implements GoogleApiService {
     }
 
     @Override
-    public void launchQuickGame(GoogleCallback googleCallback) {
+    public void launchQuickGame(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
         Gdx.app.log(TAG, "launchQuickGame");
         googleCallback.onSucces();
     }
@@ -40,7 +41,7 @@ public class DesktopGoogleApiService implements GoogleApiService {
     }
 
     @Override
-    public void logout() {
-        Gdx.app.log(TAG, "logout");
+    public boolean isSignedIn() {
+        return true;
     }
 }

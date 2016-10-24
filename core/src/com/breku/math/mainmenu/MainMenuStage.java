@@ -1,5 +1,6 @@
 package com.breku.math.mainmenu;
 
+import com.breku.math.integration.AbstractGoogleCallback;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.QuickMatchCallback;
 import com.breku.math.mainmenu.button.*;
@@ -14,7 +15,7 @@ import static com.breku.math.screen.manager.AssetType.*;
  */
 public class MainMenuStage extends AbstractStage {
 
-    private AbstractMenuButton quickMatchButton, achievementButton, exitButton, inboxButton, leaderboardButton, playWithFriendButton,loginLogoutButton;
+    private AbstractMenuButton quickMatchButton, achievementButton, exitButton, inboxButton, leaderboardButton, playWithFriendButton, loginLogoutButton;
 
     public MainMenuStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         super(googleApiService, assetManagerWrapper);
@@ -64,11 +65,10 @@ public class MainMenuStage extends AbstractStage {
             googleApiService.launchInbox(new QuickMatchCallback(this, null));
         }
 
-        if(loginLogoutButton.isClicked()){
+        if (loginLogoutButton.isClicked()) {
             loginLogoutButton.setClicked(false);
             googleApiService.login();
         }
-
 
 
 //        if (integrationCallbackModel.getScreenType() != null) {

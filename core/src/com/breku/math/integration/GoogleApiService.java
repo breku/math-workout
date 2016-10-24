@@ -7,7 +7,7 @@ public interface GoogleApiService {
 
     void launchInvitePlayersScreen();
 
-    void launchQuickGame(GoogleCallback googleCallback);
+    void launchQuickGame(GoogleCallback<GameIntegrationCallbackValue> googleCallback);
 
     void launchInbox(GoogleCallback googleCallback);
 
@@ -15,6 +15,6 @@ public interface GoogleApiService {
 
     void login();
 
-    void logout();
+    boolean isSignedIn();
 
 }

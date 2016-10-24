@@ -2,12 +2,16 @@ package com.breku.math.multiplayer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import com.badlogic.gdx.Gdx;
 import com.breku.math.AndroidLauncher;
+import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.GoogleCallback;
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.multiplayer.Invitations;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatchConfig;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMultiplayer;
@@ -45,7 +49,7 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
     }
 
     @Override
-    public void launchQuickGame(final GoogleCallback googleCallback) {
+    public void launchQuickGame(final GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
         Gdx.app.log(TAG, "launchQuickGame");
 
         final Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(1, 1, 0);
@@ -84,7 +88,7 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
     }
 
     @Override
-    public void logout() {
-        Gdx.app.log(TAG, "logout");
+    public boolean isSignedIn() {
+        return androidLauncher.getGameHelper().isSignedIn();
     }
 }
