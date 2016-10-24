@@ -2,16 +2,13 @@ package com.breku.math.multiplayer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import com.badlogic.gdx.Gdx;
 import com.breku.math.AndroidLauncher;
 import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.GoogleCallback;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.multiplayer.Invitations;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatchConfig;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMultiplayer;
@@ -38,14 +35,14 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
     }
 
     @Override
-    public void launchInvitePlayersScreen() {
+    public void launchInvitePlayersScreen(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
         Gdx.app.log(TAG, "launchInvitePlayersScreen");
         final GameHelper gameHelper = androidLauncher.getGameHelper();
-        Gdx.app.log(TAG, String.format("gameHelper.isConnecting()=%s, gameHelper.isSignedIn()=%s", gameHelper, gameHelper.isSignedIn()));
 
         Intent intent =
-                Games.TurnBasedMultiplayer.getSelectOpponentsIntent(gameHelper.getApiClient(), 1, 7, true);
+                Games.TurnBasedMultiplayer.getSelectOpponentsIntent(gameHelper.getApiClient(), 1, 1, true);
         androidLauncher.startActivityForResult(intent, RC_SELECT_PLAYERS);
+        matchService.setGoogleCallbackFormActivityResult(googleCallback);
     }
 
     @Override

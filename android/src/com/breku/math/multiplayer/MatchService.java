@@ -186,7 +186,7 @@ public class MatchService {
         ResultCallback<TurnBasedMultiplayer.InitiateMatchResult> cb = new ResultCallback<TurnBasedMultiplayer.InitiateMatchResult>() {
             @Override
             public void onResult(TurnBasedMultiplayer.InitiateMatchResult result) {
-                processResult(result, null);
+                processResult(result, googleCallbackFormActivityResult);
             }
         };
         Games.TurnBasedMultiplayer.createMatch(androidLauncher.getGameHelper().getApiClient(), tbmc).setResultCallback(cb);

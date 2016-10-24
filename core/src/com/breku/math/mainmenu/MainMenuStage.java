@@ -1,6 +1,6 @@
 package com.breku.math.mainmenu;
 
-import com.breku.math.integration.AbstractGoogleCallback;
+import com.breku.math.configuration.ContextConstants;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.QuickMatchCallback;
 import com.breku.math.mainmenu.button.*;
@@ -57,6 +57,7 @@ public class MainMenuStage extends AbstractStage {
 
         if (quickMatchButton.isClicked()) {
             quickMatchButton.setClicked(false);
+            addAdditionalData(ContextConstants.ADDITIONAL_DATA_QUICKMATCH, true);
             setTargetScreenType(ScreenType.GAME_TYPE);
         }
 
@@ -65,15 +66,17 @@ public class MainMenuStage extends AbstractStage {
             googleApiService.launchInbox(new QuickMatchCallback(this, null));
         }
 
+
+        if (playWithFriendButton.isClicked()) {
+            playWithFriendButton.setClicked(false);
+            addAdditionalData(ContextConstants.ADDITIONAL_DATA_SELECT_PLAYERS, true);
+            setTargetScreenType(ScreenType.GAME_TYPE);
+        }
+
         if (loginLogoutButton.isClicked()) {
             loginLogoutButton.setClicked(false);
             googleApiService.login();
         }
-
-
-//        if (integrationCallbackModel.getScreenType() != null) {
-//            setTargetScreenType(integrationCallbackModel.getScreenType());
-//        }
 
     }
 }

@@ -13,8 +13,7 @@ import com.breku.math.stage.AbstractStage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.breku.math.configuration.ContextConstants.ADDITIONAL_DATA_GAME_TYPE_KEY;
-import static com.breku.math.configuration.ContextConstants.ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY;
+import static com.breku.math.configuration.ContextConstants.*;
 import static com.breku.math.screen.manager.AssetType.GAME_TYPE_PLAY;
 
 /**
@@ -23,6 +22,8 @@ import static com.breku.math.screen.manager.AssetType.GAME_TYPE_PLAY;
 public class GameTypeStage extends AbstractStage {
 
     private List<PlayButton> playButtons;
+    private boolean additionalDataQuickMatch;
+    private boolean additionalDataSelectPlayers;
 
     public GameTypeStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         super(googleApiService, assetManagerWrapper);
@@ -32,6 +33,12 @@ public class GameTypeStage extends AbstractStage {
     public void initialize() {
         super.initialize();
         playButtons = new ArrayList<>();
+
+        final Object additionalDataQuickMatch = getAdditionalDataValue(ADDITIONAL_DATA_QUICKMATCH);
+        final Object additionalDataSelectPlayers = getAdditionalDataValue(ADDITIONAL_DATA_SELECT_PLAYERS);
+        this.additionalDataQuickMatch = additionalDataQuickMatch != null && (boolean) additionalDataQuickMatch;
+        this.additionalDataSelectPlayers = additionalDataSelectPlayers != null && (boolean) additionalDataSelectPlayers;
+
 
         int x = 200;
         for (final LevelDifficulty levelDifficulty : LevelDifficulty.values()) {
@@ -76,7 +83,12 @@ public class GameTypeStage extends AbstractStage {
                 addAdditionalData(ADDITIONAL_DATA_GAME_TYPE_KEY, playButton.getGameType());
                 addAdditionalData(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY, playButton.getLevelDifficulty());
                 final GameIntegrationCallbackValue callbackModel = new GameIntegrationCallbackValue(playButton.getLevelDifficulty(), playButton.getGameType());
-                googleApiService.launchQuickGame(new QuickMatchCallback(this, callbackModel));
+
+                if ((additionalDataQuickMatch)) {
+                    googleApiService.launchQuickGame(new QuickMatchCallback(this, callbackModel));
+                } else if (additionalDataSelectPlayers) {
+                    googleApiService.launchInvitePlayersScreen(new QuickMatchCallback(this, callbackModel));
+                }
                 setTargetScreenType(ScreenType.LOADING);
             }
         }

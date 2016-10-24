@@ -5,7 +5,7 @@ package com.breku.math.integration;
  */
 public interface GoogleApiService {
 
-    void launchInvitePlayersScreen();
+    void launchInvitePlayersScreen(GoogleCallback<GameIntegrationCallbackValue> googleCallback);
 
     void launchQuickGame(GoogleCallback<GameIntegrationCallbackValue> googleCallback);
 

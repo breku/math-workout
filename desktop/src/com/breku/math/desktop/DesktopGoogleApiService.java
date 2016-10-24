@@ -13,8 +13,9 @@ public class DesktopGoogleApiService implements GoogleApiService {
     private static final String TAG = "DesktopGoogleApiService";
 
     @Override
-    public void launchInvitePlayersScreen() {
+    public void launchInvitePlayersScreen(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
         Gdx.app.log(TAG, "launchInvitePlayersScreen");
+        googleCallback.onSucces();
     }
 
     @Override
