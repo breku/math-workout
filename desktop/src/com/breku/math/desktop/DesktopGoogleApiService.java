@@ -33,4 +33,14 @@ public class DesktopGoogleApiService implements GoogleApiService {
         Gdx.app.log(TAG, "takeTurn");
         googleCallback.onSucces();
     }
+
+    @Override
+    public void login() {
+        Gdx.app.log(TAG, "login");
+    }
+
+    @Override
+    public void logout() {
+        Gdx.app.log(TAG, "logout");
+    }
 }

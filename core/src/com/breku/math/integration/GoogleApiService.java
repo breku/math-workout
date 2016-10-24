@@ -13,4 +13,8 @@ public interface GoogleApiService {
 
     void takeTurn(GoogleCallback googleCallback);
 
+    void login();
+
+    void logout();
+
 }

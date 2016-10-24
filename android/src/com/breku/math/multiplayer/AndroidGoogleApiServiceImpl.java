@@ -74,4 +74,17 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
         Gdx.app.log(TAG, "takeTurn");
         matchService.takeTurn(googleCallback);
     }
+
+    @Override
+    public void login() {
+        Gdx.app.log(TAG, "login");
+        final GameHelper gameHelper = androidLauncher.getGameHelper();
+        gameHelper.signOut();
+        gameHelper.reconnectClient();
+    }
+
+    @Override
+    public void logout() {
+        Gdx.app.log(TAG, "logout");
+    }
 }

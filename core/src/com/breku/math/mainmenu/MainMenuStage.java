@@ -64,6 +64,13 @@ public class MainMenuStage extends AbstractStage {
             googleApiService.launchInbox(new QuickMatchCallback(this, null));
         }
 
+        if(loginLogoutButton.isClicked()){
+            loginLogoutButton.setClicked(false);
+            googleApiService.login();
+        }
+
+
+
 //        if (integrationCallbackModel.getScreenType() != null) {
 //            setTargetScreenType(integrationCallbackModel.getScreenType());
 //        }
