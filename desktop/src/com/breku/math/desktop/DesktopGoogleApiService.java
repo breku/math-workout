@@ -2,7 +2,7 @@ package com.breku.math.desktop;
 
 import com.badlogic.gdx.Gdx;
 import com.breku.math.integration.GoogleApiService;
-import com.breku.math.integration.LaunchCallback;
+import com.breku.math.integration.GoogleCallback;
 
 /**
  * Created by brekol on 10.10.16.
@@ -17,14 +17,20 @@ public class DesktopGoogleApiService implements GoogleApiService {
     }
 
     @Override
-    public void launchQuickGame(LaunchCallback launchCallback) {
+    public void launchQuickGame(GoogleCallback googleCallback) {
         Gdx.app.log(TAG, "launchQuickGame");
-        launchCallback.onSucces();
+        googleCallback.onSucces();
     }
 
     @Override
-    public void launchInbox(LaunchCallback launchCallback) {
+    public void launchInbox(GoogleCallback googleCallback) {
         Gdx.app.log(TAG, "launchInbox");
-        launchCallback.onSucces();
+        googleCallback.onSucces();
+    }
+
+    @Override
+    public void takeTurn(GoogleCallback googleCallback) {
+        Gdx.app.log(TAG, "takeTurn");
+        googleCallback.onSucces();
     }
 }

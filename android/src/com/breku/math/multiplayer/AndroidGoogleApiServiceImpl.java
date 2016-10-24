@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.badlogic.gdx.Gdx;
 import com.breku.math.AndroidLauncher;
 import com.breku.math.integration.GoogleApiService;
-import com.breku.math.integration.LaunchCallback;
+import com.breku.math.integration.GoogleCallback;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
@@ -45,7 +45,7 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
     }
 
     @Override
-    public void launchQuickGame(final LaunchCallback launchCallback) {
+    public void launchQuickGame(final GoogleCallback googleCallback) {
         Gdx.app.log(TAG, "launchQuickGame");
 
         final Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(1, 1, 0);
@@ -55,17 +55,23 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
         ResultCallback<TurnBasedMultiplayer.InitiateMatchResult> cb = new ResultCallback<TurnBasedMultiplayer.InitiateMatchResult>() {
             @Override
             public void onResult(TurnBasedMultiplayer.InitiateMatchResult result) {
-                matchService.processResult(result, launchCallback);
+                matchService.processResult(result, googleCallback);
             }
         };
         Games.TurnBasedMultiplayer.createMatch(androidLauncher.getGameHelper().getApiClient(), tbmc).setResultCallback(cb);
     }
 
     @Override
-    public void launchInbox(LaunchCallback launchCallback) {
+    public void launchInbox(GoogleCallback googleCallback) {
         Gdx.app.log(TAG, "launchInbox");
         Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(androidLauncher.getGameHelper().getApiClient());
         androidLauncher.startActivityForResult(intent, RC_INBOX);
-        matchService.setLaunchCallbackFormActivityResult(launchCallback);
+        matchService.setGoogleCallbackFormActivityResult(googleCallback);
+    }
+
+    @Override
+    public void takeTurn(GoogleCallback googleCallback) {
+        Gdx.app.log(TAG, "takeTurn");
+        matchService.takeTurn(googleCallback);
     }
 }

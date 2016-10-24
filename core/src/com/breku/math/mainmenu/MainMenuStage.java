@@ -14,7 +14,7 @@ import static com.breku.math.screen.manager.AssetType.*;
  */
 public class MainMenuStage extends AbstractStage {
 
-    private AbstractMenuButton quickMatchButton, achievementButton, exitButton, inboxButton, leaderboardButton, playWithFriendButton;
+    private AbstractMenuButton quickMatchButton, achievementButton, exitButton, inboxButton, leaderboardButton, playWithFriendButton,loginLogoutButton;
 
     public MainMenuStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         super(googleApiService, assetManagerWrapper);
@@ -29,12 +29,14 @@ public class MainMenuStage extends AbstractStage {
         achievementButton = new AchievementButton(assetManagerWrapper.getTexture(ACHIEVEMENT_BUTTON_TEXTURE));
         leaderboardButton = new LeaderboardButton(assetManagerWrapper.getTexture(LEADERBOARD_BUTTON_TEXTURE));
         exitButton = new ExitButton(assetManagerWrapper.getTexture(EXIT_BUTTON_TEXTURE));
+        loginLogoutButton = new LoginLogoutButton(assetManagerWrapper.getTexture(LOGIN_LOGOUT_BUTTON_TEXTURE));
         addActor(quickMatchButton);
         addActor(playWithFriendButton);
         addActor(inboxButton);
         addActor(achievementButton);
         addActor(leaderboardButton);
         addActor(exitButton);
+        addActor(loginLogoutButton);
     }
 
     @Override

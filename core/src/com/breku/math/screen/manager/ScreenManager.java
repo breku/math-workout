@@ -44,7 +44,6 @@ public class ScreenManager {
             changeScreen(myGdxGame, currentScreen, targetScreenType);
         }
 
-
     }
 
     private ScreenType getTargetScreenType(AbstractScreen currentScreen) {

@@ -1,11 +1,9 @@
 package com.breku.math.integration;
 
-import java.io.Serializable;
-
 /**
  * Created by brekol on 13.10.16.
  */
-public interface LaunchCallback {
+public interface GoogleCallback {
 
     void onSucces();
 

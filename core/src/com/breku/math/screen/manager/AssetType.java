@@ -17,6 +17,7 @@ public enum AssetType {
     LEADERBOARD_BUTTON_TEXTURE("gfx/menu/leaderboard.png"),
     ACHIEVEMENT_BUTTON_TEXTURE("gfx/menu/achievement.png"),
     EXIT_BUTTON_TEXTURE("gfx/menu/exit.png"),
+    LOGIN_LOGOUT_BUTTON_TEXTURE("gfx/menu/login.png"),
 
     /**
      * Game
