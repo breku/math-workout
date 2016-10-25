@@ -20,7 +20,6 @@ public class QuickMatchCallback extends AbstractGoogleCallback<GameIntegrationCa
         this.stage = stage;
     }
 
-
     @Override
     public void onSucces() {
         Gdx.app.log(TAG, "onSuccess");
@@ -28,7 +27,7 @@ public class QuickMatchCallback extends AbstractGoogleCallback<GameIntegrationCa
                 !(boolean) stage.getAdditionalDataValue(ADDITIONAL_DATA_CALLBACK_SHOULD_FAIL)) {
             stage.addAdditionalData(ADDITIONAL_DATA_GAME_TYPE_KEY, callbackModel.getGameType());
             stage.addAdditionalData(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY, callbackModel.getLevelDifficulty());
-            stage.setTargetScreenType(ScreenType.GAME);
+            stage.setTargetScreenType(ScreenType.LOADING_FINISHED);
         }
     }
 

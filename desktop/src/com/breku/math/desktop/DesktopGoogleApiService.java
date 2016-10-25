@@ -5,35 +5,39 @@ import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.GoogleCallback;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by brekol on 10.10.16.
  */
 public class DesktopGoogleApiService implements GoogleApiService {
 
     private static final String TAG = "DesktopGoogleApiService";
+    private Timer timer = new Timer();
 
     @Override
     public void launchInvitePlayersScreen(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
         Gdx.app.log(TAG, "launchInvitePlayersScreen");
-        googleCallback.onSucces();
+        callOnSuccessWithDelay(googleCallback);
     }
 
     @Override
-    public void launchQuickGame(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
+    public void launchQuickGame(final GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
         Gdx.app.log(TAG, "launchQuickGame");
-        googleCallback.onSucces();
+        callOnSuccessWithDelay(googleCallback);
     }
 
     @Override
     public void launchInbox(GoogleCallback googleCallback) {
         Gdx.app.log(TAG, "launchInbox");
-        googleCallback.onSucces();
+        callOnSuccessWithDelay(googleCallback);
     }
 
     @Override
     public void takeTurn(GoogleCallback googleCallback) {
         Gdx.app.log(TAG, "takeTurn");
-        googleCallback.onSucces();
+        callOnSuccessWithDelay(googleCallback);
     }
 
     @Override
@@ -44,5 +48,14 @@ public class DesktopGoogleApiService implements GoogleApiService {
     @Override
     public boolean isSignedIn() {
         return true;
+    }
+
+    private void callOnSuccessWithDelay(final GoogleCallback googleCallback) {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                googleCallback.onSucces();
+            }
+        }, 1000);
     }
 }

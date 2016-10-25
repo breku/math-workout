@@ -7,6 +7,7 @@ import com.breku.math.game.GameScreen;
 import com.breku.math.gametype.GameTypeScreen;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.loading.LoadingScreen;
+import com.breku.math.loadingfinished.LoadingFinishedScreen;
 import com.breku.math.mainmenu.MainMenuScreen;
 import com.breku.math.screen.AbstractScreen;
 import com.breku.math.screen.ScreenType;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class ScreenManager {
     private static final String TAG = "ScreenManager";
 
-    private final AbstractScreen menuScreen, gameScreen, gameTypeScreen, endGameScreen, loadingScreen;
+    private final AbstractScreen menuScreen, gameScreen, gameTypeScreen, endGameScreen, loadingScreen, loadingFinishedScreen;
 
     private AbstractScreen previousScreenBeforeLoading;
 
@@ -30,6 +31,7 @@ public class ScreenManager {
         gameTypeScreen = new GameTypeScreen(googleApiService, assetManagerWrapper);
         endGameScreen = new EndGameScreen(googleApiService, assetManagerWrapper);
         loadingScreen = new LoadingScreen(googleApiService, assetManagerWrapper);
+        loadingFinishedScreen = new LoadingFinishedScreen(googleApiService, assetManagerWrapper);
     }
 
     public AbstractScreen getInitScreen() {
@@ -111,6 +113,8 @@ public class ScreenManager {
             return endGameScreen;
         } else if (ScreenType.LOADING.equals(screenType)) {
             return loadingScreen;
+        } else if (ScreenType.LOADING_FINISHED.equals(screenType)) {
+            return loadingFinishedScreen;
         }
         throw new IllegalStateException(String.format("There is no screen type=[%s]", screenType));
     }
