@@ -13,6 +13,17 @@ public class GameIntegrationCallbackValue {
         this.gameType = gameType;
     }
 
+
+    public int getTurnCounter() {
+        return turnCounter;
+    }
+
+    public void setTurnCounter(int turnCounter) {
+        this.turnCounter = turnCounter;
+    }
+
+    private int turnCounter;
+
     private LevelDifficulty levelDifficulty;
 
     private GameType gameType;

@@ -113,6 +113,7 @@ public class MatchService {
                 Log.e(TAG, "setGameplayUI");
                 final GoogleCallback correctGoogleCallback = getCorrectLaunchCallback(googleCallback);
                 GameIntegrationCallbackValue callbackModel = new GameIntegrationCallbackValue(mTurnData.levelDifficulty, mTurnData.gameType);
+                callbackModel.setTurnCounter(mTurnData.turnCounter);
                 correctGoogleCallback.setCallbackValue(callbackModel);
                 correctGoogleCallback.onSucces();
 
@@ -200,7 +201,7 @@ public class MatchService {
     public void takeTurn(final GoogleCallback googleCallback) {
         String nextParticipantId = getNextParticipantId();
 
-
+        mTurnData.incrementTurnCounter();
         Games.TurnBasedMultiplayer.takeTurn(androidLauncher.getGameHelper().getApiClient(), mMatch.getMatchId(),
                 mTurnData.persist(), nextParticipantId).setResultCallback(
                 new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>() {

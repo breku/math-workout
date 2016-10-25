@@ -67,6 +67,10 @@ public class TurnData {
         return retVal;
     }
 
+    public void incrementTurnCounter(){
+        turnCounter++;
+    }
+
     // This is the byte array we will write out to the TBMP API.
     public byte[] persist() {
         JSONObject retVal = new JSONObject();
