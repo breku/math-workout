@@ -9,13 +9,13 @@ import static com.breku.math.configuration.ContextConstants.*;
 /**
  * Created by brekol on 13.10.16.
  */
-public class QuickMatchCallback extends AbstractGoogleCallback<GameIntegrationCallbackValue> {
+public class LoadingFinishedCallback extends AbstractGoogleCallback<GameIntegrationCallbackValue> {
 
-    private static final String TAG = "QuickMatchCallback";
+    private static final String TAG = "LoadingFinishedCallback";
 
     private final AbstractStage stage;
 
-    public QuickMatchCallback(AbstractStage stage, GameIntegrationCallbackValue callbackModel) {
+    public LoadingFinishedCallback(AbstractStage stage, GameIntegrationCallbackValue callbackModel) {
         super(callbackModel);
         this.stage = stage;
     }
@@ -28,9 +28,10 @@ public class QuickMatchCallback extends AbstractGoogleCallback<GameIntegrationCa
             stage.addAdditionalData(ADDITIONAL_DATA_GAME_TYPE_KEY, callbackModel.getGameType());
             stage.addAdditionalData(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY, callbackModel.getLevelDifficulty());
 
-            if (callbackModel.isShouldSetGameType() && callbackModel.getGameType() == null) {
+            if (callbackModel.isShouldSetGameType()) {
                 stage.addAdditionalData(ADDITIONAL_DATA_SET_GAME_TYPE, true);
             }
+            stage.addAdditionalData(ADDITIONAL_DATA_TURN_COUNTER, callbackModel.getTurnCounter());
 
             stage.setTargetScreenType(ScreenType.LOADING_FINISHED);
         }

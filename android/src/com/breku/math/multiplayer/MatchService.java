@@ -121,9 +121,12 @@ public class MatchService {
 
                 final Round currentRound = turnData.getCurrentRound();
                 final GameIntegrationCallbackValue callbackValue = new GameIntegrationCallbackValue(currentRound.getLevelDifficulty(), currentRound.getGameType());
-                if (turnData.isFirstRound()) {
+                if ((turnData.isFirstRound() || currentRound.getScoreMap().size() < 2) && currentRound.getLevelDifficulty() == null) {
                     callbackValue.setShouldSetGameType(true);
+                } else {
+                    callbackValue.setShouldSetGameType(false);
                 }
+                callbackValue.setTurnCounter(turnData.getTurnCounter());
                 correctGoogleCallback.setCallbackValue(callbackValue);
                 correctGoogleCallback.onSucces();
 
@@ -210,7 +213,7 @@ public class MatchService {
         this.googleCallbackFormActivityResult = googleCallbackFormActivityResult;
     }
 
-    public void takeTurn(final GoogleCallback<TakeTurnIntegrationCallbackValue> googleCallback) {
+    public void takeTurn(final GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
 
         final int currentPlayerScore = googleCallback.getCallbackValue().getScore();
         final String myParticipantId = getMyParticipantIdFromCurrentMatch();
@@ -259,13 +262,17 @@ public class MatchService {
         }
     }
 
-    public void takeTurnAsMyself(final GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
+    public void takeTurnAsMyself(final GoogleCallback<GameIntegrationCallbackValue> googleCallback, boolean incrementTurnCounter) {
 
         String playerId = Games.Players.getCurrentPlayerId(androidLauncher.getGameHelper().getApiClient());
         String myParticipantId = mMatch.getParticipantId(playerId);
 
         final GameIntegrationCallbackValue callbackValue = googleCallback.getCallbackValue();
         turnDataService.updateLevelAndGameType(callbackValue.getLevelDifficulty(), callbackValue.getGameType());
+
+        if (incrementTurnCounter) {
+            turnDataService.incrementTurnCounter();
+        }
 
         Games.TurnBasedMultiplayer.takeTurn(androidLauncher.getGameHelper().getApiClient(), mMatch.getMatchId(),
                 turnDataService.persist(), myParticipantId).setResultCallback(

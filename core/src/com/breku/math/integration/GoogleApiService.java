@@ -11,7 +11,9 @@ public interface GoogleApiService {
 
     void launchInbox(GoogleCallback googleCallback);
 
-    void takeTurn(GoogleCallback<TakeTurnIntegrationCallbackValue> googleCallback);
+    void takeTurn(GoogleCallback<GameIntegrationCallbackValue> googleCallback);
+
+    void takeTurnAsMyself(GoogleCallback<GameIntegrationCallbackValue> googleCallback, boolean incrementTurnCounter);
 
     void takeTurnAsMyself(GoogleCallback<GameIntegrationCallbackValue> googleCallback);
 

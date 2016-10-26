@@ -16,6 +16,7 @@ public final class ContextConstants {
 
     // int
     public static final String ADDITIONAL_DATA_GAME_SCORE = "ADDITIONAL_DATA_GAME_SCORE";
+    public static final String ADDITIONAL_DATA_TURN_COUNTER = "ADDITIONAL_DATA_TURN_COUNTER";
 
     // boolean
     public static final String ADDITIONAL_DATA_QUICKMATCH = "ADDITIONAL_DATA_QUICKMATCH";

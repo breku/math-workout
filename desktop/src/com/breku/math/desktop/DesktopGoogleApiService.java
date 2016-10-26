@@ -36,15 +36,20 @@ public class DesktopGoogleApiService implements GoogleApiService {
     }
 
     @Override
-    public void takeTurn(GoogleCallback<TakeTurnIntegrationCallbackValue> googleCallback) {
+    public void takeTurn(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
         Gdx.app.log(TAG, "takeTurn");
         callOnSuccessWithDelay(googleCallback);
     }
 
     @Override
-    public void takeTurnAsMyself(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
+    public void takeTurnAsMyself(GoogleCallback<GameIntegrationCallbackValue> googleCallback, boolean incrementTurnCounter) {
         Gdx.app.log(TAG, "takeTurnAsMyself");
         callOnSuccessWithDelay(googleCallback);
+    }
+
+    @Override
+    public void takeTurnAsMyself(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
+        takeTurnAsMyself(googleCallback, false);
     }
 
     @Override

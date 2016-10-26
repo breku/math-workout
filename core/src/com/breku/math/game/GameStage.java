@@ -15,9 +15,7 @@ import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.stage.AbstractStage;
 
-import java.util.ArrayDeque;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 import static com.breku.math.configuration.ContextConstants.*;
 import static com.breku.math.screen.manager.AssetType.NO_BUTTON_TEXTURE;
@@ -34,6 +32,7 @@ public class GameStage extends AbstractStage {
     private Queue<MathEquationActor> mathEquationActorQueue;
     private Queue<MathEquationActor> visibleMathEquations;
     private ProgressCircle progressCircle;
+    private Map<String, Object> additionalDataCopy;
     private int score;
 
     public GameStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
@@ -43,6 +42,7 @@ public class GameStage extends AbstractStage {
     @Override
     public void initialize() {
         super.initialize();
+        additionalDataCopy = new HashMap<>(getAdditionalData());
         buttonNo = new ButtonNo(assetManagerWrapper.getTexture(NO_BUTTON_TEXTURE));
         buttonOk = new ButtonOk(assetManagerWrapper.getTexture(OK_BUTTON_TEXTURE));
         equationGeneratorService = new EquationGeneratorService();
@@ -59,32 +59,6 @@ public class GameStage extends AbstractStage {
         addActor(progressCircle);
         addActor(buttonNo);
         addActor(buttonOk);
-    }
-
-    private List<MathEquation> generateMathEquations() {
-        final GameType gameType = (GameType) getAdditionalDataValue(ADDITIONAL_DATA_GAME_TYPE_KEY);
-        final LevelDifficulty levelDifficulty = (LevelDifficulty) getAdditionalDataValue(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY);
-        return equationGeneratorService.generateEquations(gameType, levelDifficulty);
-    }
-
-    private Queue<MathEquationActor> convertMathEquationsToActors(List<MathEquation> mathEquations) {
-        final Queue<MathEquationActor> result = new ArrayDeque<>();
-        for (final MathEquation mathEquation : mathEquations) {
-            result.add(new MathEquationActor(mathEquation, font));
-        }
-        return result;
-    }
-
-    private Queue<MathEquationActor> getInitialMathEquations(Queue<MathEquationActor> mathEquationActorQueue) {
-        final Queue<MathEquationActor> result = new ArrayDeque<>();
-        int counterY = 200;
-        for (int i = 0; i < NUMBER_OF_VISIBLE_EQUATIONS; i++) {
-            final MathEquationActor remove = mathEquationActorQueue.remove();
-            remove.setPosition(600, counterY);
-            result.add(remove);
-            counterY += 200;
-        }
-        return result;
     }
 
     @Override
@@ -115,9 +89,46 @@ public class GameStage extends AbstractStage {
         }
 
         if (progressCircle.isGameOver()) {
+            setAdditionalData(additionalDataCopy);
             addAdditionalData(ADDITIONAL_DATA_GAME_SCORE, score);
             setTargetScreenType(ScreenType.END_GAME);
         }
+    }
+
+    @Override
+    public boolean keyDown(int keyCode) {
+        super.keyDown(keyCode);
+        if (keyCode == Input.Keys.BACK || keyCode == Input.Keys.BACKSPACE) {
+            setTargetScreenType(ScreenType.MENU);
+            return true;
+        }
+        return false;
+    }
+
+    private List<MathEquation> generateMathEquations() {
+        final GameType gameType = (GameType) getAdditionalDataValue(ADDITIONAL_DATA_GAME_TYPE_KEY);
+        final LevelDifficulty levelDifficulty = (LevelDifficulty) getAdditionalDataValue(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY);
+        return equationGeneratorService.generateEquations(gameType, levelDifficulty);
+    }
+
+    private Queue<MathEquationActor> convertMathEquationsToActors(List<MathEquation> mathEquations) {
+        final Queue<MathEquationActor> result = new ArrayDeque<>();
+        for (final MathEquation mathEquation : mathEquations) {
+            result.add(new MathEquationActor(mathEquation, font));
+        }
+        return result;
+    }
+
+    private Queue<MathEquationActor> getInitialMathEquations(Queue<MathEquationActor> mathEquationActorQueue) {
+        final Queue<MathEquationActor> result = new ArrayDeque<>();
+        int counterY = 200;
+        for (int i = 0; i < NUMBER_OF_VISIBLE_EQUATIONS; i++) {
+            final MathEquationActor remove = mathEquationActorQueue.remove();
+            remove.setPosition(600, counterY);
+            result.add(remove);
+            counterY += 200;
+        }
+        return result;
     }
 
     private void handleAfterUserClick(AbstractGameButton gameButton, int scoreToAddIfCorrectEquation, int scoreToMinusIfWrongEquation) {
@@ -149,16 +160,6 @@ public class GameStage extends AbstractStage {
         for (final MathEquationActor mathEquationActor : visibleMathEquations) {
             mathEquationActor.moveDown();
         }
-    }
-
-    @Override
-    public boolean keyDown(int keyCode) {
-        super.keyDown(keyCode);
-        if (keyCode == Input.Keys.BACK || keyCode == Input.Keys.BACKSPACE) {
-            setTargetScreenType(ScreenType.MENU);
-            return true;
-        }
-        return false;
     }
 
 }

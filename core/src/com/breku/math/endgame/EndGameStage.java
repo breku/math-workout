@@ -1,9 +1,11 @@
 package com.breku.math.endgame;
 
 import com.breku.math.configuration.ContextConstants;
-import com.breku.math.integration.GoogleApiService;
+import com.breku.math.game.level.GameType;
+import com.breku.math.game.level.LevelDifficulty;
 import com.breku.math.integration.GameIntegrationCallbackValue;
-import com.breku.math.integration.TakeTurnIntegrationCallbackValue;
+import com.breku.math.integration.GoogleApiService;
+import com.breku.math.integration.SimpleCallback;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.stage.AbstractStage;
@@ -14,6 +16,9 @@ import com.breku.math.stage.AbstractStage;
 public class EndGameStage extends AbstractStage {
 
     private int score;
+    private int turnCounter;
+    private LevelDifficulty levelDifficulty;
+    private GameType gameType;
 
     public EndGameStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         super(googleApiService, assetManagerWrapper);
@@ -23,6 +28,9 @@ public class EndGameStage extends AbstractStage {
     public void initialize() {
         super.initialize();
         score = (int) getAdditionalDataValue(ContextConstants.ADDITIONAL_DATA_GAME_SCORE);
+        turnCounter = (int) getAdditionalDataValue(ContextConstants.ADDITIONAL_DATA_TURN_COUNTER);
+        levelDifficulty = (LevelDifficulty) getAdditionalDataValue(ContextConstants.ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY);
+        gameType = (GameType) getAdditionalDataValue(ContextConstants.ADDITIONAL_DATA_GAME_TYPE_KEY);
     }
 
     @Override
@@ -48,8 +56,18 @@ public class EndGameStage extends AbstractStage {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        googleApiService.takeTurn(new TakeTurnCallback(new TakeTurnIntegrationCallbackValue(score)));
-        setTargetScreenType(ScreenType.MENU);
+        final GameIntegrationCallbackValue callbackValue = new GameIntegrationCallbackValue(levelDifficulty, gameType);
+        callbackValue.setScore(score);
+        callbackValue.setTurnCounter(turnCounter);
+
+        if (turnCounter % 2 != 0) {
+            googleApiService.takeTurnAsMyself(new TakeTurnCallback(callbackValue, this), true);
+            setTargetScreenType(ScreenType.LOADING);
+        } else {
+            googleApiService.takeTurn(new SimpleCallback(callbackValue));
+            setTargetScreenType(ScreenType.MENU);
+        }
+
         return true;
     }
 }
