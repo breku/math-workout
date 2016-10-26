@@ -1,11 +1,14 @@
 package com.breku.math.persistance;
 
 import android.util.Log;
+import com.breku.math.game.level.GameType;
+import com.breku.math.game.level.LevelDifficulty;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.Map;
 
 /**
  * Created by brekol on 16.10.16.
@@ -41,6 +44,18 @@ public class TurnDataService {
 
     public void incrementTurnCounter() {
         turnData.setTurnCounter(turnData.getTurnCounter() + 1);
+        turnData.setFirstRound(false);
+    }
+
+    public void updateScoreForPlayer(final String participantId, final int score) {
+        final Round currentRound = turnData.getCurrentRound();
+        final Map<String, Integer> scoreMap = currentRound.getScoreMap();
+        scoreMap.put(participantId, score);
+    }
+
+    public void updateLevelAndGameType(LevelDifficulty levelDifficulty, GameType gameType) {
+        turnData.setGameType(gameType);
+        turnData.setLevelDifficulty(levelDifficulty);
     }
 
     private String getStringFromByteArray(byte[] byteArray) {

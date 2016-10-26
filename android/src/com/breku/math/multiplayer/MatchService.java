@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.breku.math.AndroidLauncher;
 import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleCallback;
+import com.breku.math.integration.TakeTurnIntegrationCallbackValue;
 import com.breku.math.persistance.TurnData;
 import com.breku.math.persistance.TurnDataService;
 import com.google.android.gms.common.api.ResultCallback;
@@ -113,10 +114,15 @@ public class MatchService {
                 TurnData turnData = turnDataService.unpersist(mMatch.getData());
                 turnDataService.setTurnData(turnData);
                 Log.e(TAG, "setGameplayUI");
+
+                // callback might be in field because it might come from inboxLaunch or friendScreen (new intent was started)
                 final GoogleCallback correctGoogleCallback = getCorrectLaunchCallback(googleCallback);
-                GameIntegrationCallbackValue callbackModel = new GameIntegrationCallbackValue(turnData.getLevelDifficulty(), turnData.getGameType());
-                callbackModel.setTurnCounter(turnData.getTurnCounter());
-                correctGoogleCallback.setCallbackValue(callbackModel);
+
+                GameIntegrationCallbackValue callbackValue = new GameIntegrationCallbackValue(turnData.getLevelDifficulty(), turnData.getGameType());
+                if (turnData.isFirstRound()) {
+                    callbackValue.setShouldSetGameType(true);
+                }
+                correctGoogleCallback.setCallbackValue(callbackValue);
                 correctGoogleCallback.onSucces();
 
                 return;
@@ -143,9 +149,9 @@ public class MatchService {
         TurnData turnData = new TurnData();
         // Some basic turn data
         turnData.setData("First turn");
-        final GameIntegrationCallbackValue callbackModel = googleCallback.getCallbackValue();
-        turnData.setLevelDifficulty(callbackModel.getLevelDifficulty());
-        turnData.setGameType(callbackModel.getGameType());
+//        final GameIntegrationCallbackValue callbackModel = googleCallback.getCallbackValue();
+//        turnData.setLevelDifficulty(callbackModel.getLevelDifficulty());
+//        turnData.setGameType(callbackModel.getGameType());
         turnDataService.setTurnData(turnData);
 
         mMatch = match;
@@ -202,10 +208,15 @@ public class MatchService {
         this.googleCallbackFormActivityResult = googleCallbackFormActivityResult;
     }
 
-    public void takeTurn(final GoogleCallback googleCallback) {
-        String nextParticipantId = getNextParticipantId();
+    public void takeTurn(final GoogleCallback<TakeTurnIntegrationCallbackValue> googleCallback) {
 
+        final int currentPlayerScore = googleCallback.getCallbackValue().getScore();
+        final String myParticipantId = getMyParticipantIdFromCurrentMatch();
+
+        turnDataService.updateScoreForPlayer(myParticipantId, currentPlayerScore);
         turnDataService.incrementTurnCounter();
+
+        final String nextParticipantId = getNextParticipantId();
         Games.TurnBasedMultiplayer.takeTurn(androidLauncher.getGameHelper().getApiClient(), mMatch.getMatchId(),
                 turnDataService.persist(), nextParticipantId).setResultCallback(
                 new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>() {
@@ -244,6 +255,30 @@ public class MatchService {
             // person to play against.
             return null;
         }
+    }
+
+    public void takeTurnAsMyself(final GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
+
+        String playerId = Games.Players.getCurrentPlayerId(androidLauncher.getGameHelper().getApiClient());
+        String myParticipantId = mMatch.getParticipantId(playerId);
+
+        final GameIntegrationCallbackValue callbackValue = googleCallback.getCallbackValue();
+        turnDataService.updateLevelAndGameType(callbackValue.getLevelDifficulty(), callbackValue.getGameType());
+
+        Games.TurnBasedMultiplayer.takeTurn(androidLauncher.getGameHelper().getApiClient(), mMatch.getMatchId(),
+                turnDataService.persist(), myParticipantId).setResultCallback(
+                new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>() {
+                    @Override
+                    public void onResult(TurnBasedMultiplayer.UpdateMatchResult result) {
+                        processResult(result, googleCallback);
+                    }
+                });
+
+    }
+
+    private String getMyParticipantIdFromCurrentMatch() {
+        String playerId = Games.Players.getCurrentPlayerId(androidLauncher.getGameHelper().getApiClient());
+        return mMatch.getParticipantId(playerId);
     }
 
     private GoogleCallback getCorrectLaunchCallback(GoogleCallback googleCallback) {

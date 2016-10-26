@@ -1,5 +1,6 @@
 package com.breku.math.loadingfinished;
 
+import com.breku.math.configuration.ContextConstants;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
@@ -44,7 +45,12 @@ public class LoadingFinishedStage extends AbstractStage {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         setAdditionalData(additionalDataCopy);
-        setTargetScreenType(ScreenType.GAME);
+        if (additionalDataCopy.get(ContextConstants.ADDITIONAL_DATA_SET_GAME_TYPE) != null &&
+                (boolean) additionalDataCopy.get(ContextConstants.ADDITIONAL_DATA_SET_GAME_TYPE)){
+            setTargetScreenType(ScreenType.GAME_TYPE);
+        }else {
+            setTargetScreenType(ScreenType.GAME);
+        }
         return true;
     }
 }

@@ -1,7 +1,6 @@
 package com.breku.math.mainmenu;
 
 import com.breku.math.configuration.ContextConstants;
-import com.breku.math.integration.AbstractGoogleCallback;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.QuickMatchCallback;
 import com.breku.math.mainmenu.button.*;
@@ -59,7 +58,7 @@ public class MainMenuStage extends AbstractStage {
         super.draw();
 
         getBatch().begin();
-        font.draw(getBatch(),currentPlayerName,800,500);
+        font.draw(getBatch(), currentPlayerName, 800, 500);
         getBatch().end();
     }
 
@@ -70,7 +69,8 @@ public class MainMenuStage extends AbstractStage {
         if (quickMatchButton.isClicked()) {
             quickMatchButton.setClicked(false);
             addAdditionalData(ContextConstants.ADDITIONAL_DATA_QUICKMATCH, true);
-            setTargetScreenType(ScreenType.GAME_TYPE);
+            googleApiService.launchQuickGame(new QuickMatchCallback(this, null));
+            setTargetScreenType(ScreenType.LOADING);
         }
 
         if (inboxButton.isClicked()) {

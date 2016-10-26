@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.GoogleCallback;
+import com.breku.math.integration.TakeTurnIntegrationCallbackValue;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,8 +36,14 @@ public class DesktopGoogleApiService implements GoogleApiService {
     }
 
     @Override
-    public void takeTurn(GoogleCallback googleCallback) {
+    public void takeTurn(GoogleCallback<TakeTurnIntegrationCallbackValue> googleCallback) {
         Gdx.app.log(TAG, "takeTurn");
+        callOnSuccessWithDelay(googleCallback);
+    }
+
+    @Override
+    public void takeTurnAsMyself(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
+        Gdx.app.log(TAG, "takeTurnAsMyself");
         callOnSuccessWithDelay(googleCallback);
     }
 

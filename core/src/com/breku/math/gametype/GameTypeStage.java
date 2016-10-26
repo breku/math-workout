@@ -82,14 +82,19 @@ public class GameTypeStage extends AbstractStage {
                 playButton.setClicked(false);
                 addAdditionalData(ADDITIONAL_DATA_GAME_TYPE_KEY, playButton.getGameType());
                 addAdditionalData(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY, playButton.getLevelDifficulty());
-                final GameIntegrationCallbackValue callbackModel = new GameIntegrationCallbackValue(playButton.getLevelDifficulty(), playButton.getGameType());
+                setTargetScreenType(ScreenType.GAME);
 
-                if ((additionalDataQuickMatch)) {
-                    googleApiService.launchQuickGame(new QuickMatchCallback(this, callbackModel));
-                } else if (additionalDataSelectPlayers) {
-                    googleApiService.launchInvitePlayersScreen(new QuickMatchCallback(this, callbackModel));
-                }
+                GameIntegrationCallbackValue callbackValue = new GameIntegrationCallbackValue(playButton.getLevelDifficulty(), playButton.getGameType());
+                googleApiService.takeTurnAsMyself(new QuickMatchCallback(this, callbackValue));
                 setTargetScreenType(ScreenType.LOADING);
+//                final GameIntegrationCallbackValue callbackModel = new GameIntegrationCallbackValue(playButton.getLevelDifficulty(), playButton.getGameType());
+//
+//                if ((additionalDataQuickMatch)) {
+//                    googleApiService.launchQuickGame(new QuickMatchCallback(this, callbackModel));
+//                } else if (additionalDataSelectPlayers) {
+//                    googleApiService.launchInvitePlayersScreen(new QuickMatchCallback(this, callbackModel));
+//                }
+//                setTargetScreenType(ScreenType.LOADING);
             }
         }
 

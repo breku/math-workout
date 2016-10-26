@@ -7,6 +7,7 @@ import com.breku.math.AndroidLauncher;
 import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.GoogleCallback;
+import com.breku.math.integration.TakeTurnIntegrationCallbackValue;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
@@ -71,9 +72,15 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
     }
 
     @Override
-    public void takeTurn(GoogleCallback googleCallback) {
+    public void takeTurn(GoogleCallback<TakeTurnIntegrationCallbackValue> googleCallback) {
         Gdx.app.log(TAG, "takeTurn");
         matchService.takeTurn(googleCallback);
+    }
+
+    @Override
+    public void takeTurnAsMyself(GoogleCallback<GameIntegrationCallbackValue> googleCallback) {
+        Gdx.app.log(TAG, "takeTurnAsMyself");
+        matchService.takeTurnAsMyself(googleCallback);
     }
 
     @Override

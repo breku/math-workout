@@ -23,6 +23,8 @@ public final class ContextConstants {
     public static final String ADDITIONAL_BACK_KEY_CLICKED = "ADDITIONAL_BACK_KEY_CLICKED";
     public static final String ADDITIONAL_DATA_SELECT_PLAYERS = "ADDITIONAL_DATA_SELECT_PLAYERS";
 
+    public static final String ADDITIONAL_DATA_SET_GAME_TYPE = "ADDITIONAL_DATA_SET_GAME_TYPE";
+
 
     private ContextConstants() {
         // to hide

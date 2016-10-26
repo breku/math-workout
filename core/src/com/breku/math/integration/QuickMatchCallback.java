@@ -22,11 +22,16 @@ public class QuickMatchCallback extends AbstractGoogleCallback<GameIntegrationCa
 
     @Override
     public void onSucces() {
-        Gdx.app.log(TAG, "onSuccess");
+        Gdx.app.log(TAG, String.format("onSuccess with callbackModel=[%s]", callbackModel));
         if (stage.getAdditionalDataValue(ADDITIONAL_DATA_CALLBACK_SHOULD_FAIL) == null ||
                 !(boolean) stage.getAdditionalDataValue(ADDITIONAL_DATA_CALLBACK_SHOULD_FAIL)) {
             stage.addAdditionalData(ADDITIONAL_DATA_GAME_TYPE_KEY, callbackModel.getGameType());
             stage.addAdditionalData(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY, callbackModel.getLevelDifficulty());
+
+            if (callbackModel.isShouldSetGameType() && callbackModel.getGameType() == null) {
+                stage.addAdditionalData(ADDITIONAL_DATA_SET_GAME_TYPE, true);
+            }
+
             stage.setTargetScreenType(ScreenType.LOADING_FINISHED);
         }
     }

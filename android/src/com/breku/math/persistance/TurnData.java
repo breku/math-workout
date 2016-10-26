@@ -3,15 +3,41 @@ package com.breku.math.persistance;
 import com.breku.math.game.level.GameType;
 import com.breku.math.game.level.LevelDifficulty;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by brekol on 25.10.16.
  */
 public class TurnData {
 
     private String data = "";
+    private boolean firstRound = true;
     private int turnCounter;
     private LevelDifficulty levelDifficulty;
     private GameType gameType;
+    private List<Round> roundList = Arrays.asList(new Round(), new Round(), new Round(), new Round());
+
+    public Round getCurrentRound() {
+        final int roundIndex = turnCounter / 2;
+        return roundList.get(roundIndex);
+    }
+
+    public boolean isFirstRound() {
+        return firstRound;
+    }
+
+    public void setFirstRound(boolean firstRound) {
+        this.firstRound = firstRound;
+    }
+
+    public List<Round> getRoundList() {
+        return roundList;
+    }
+
+    public void setRoundList(List<Round> roundList) {
+        this.roundList = roundList;
+    }
 
     public String getData() {
         return data;

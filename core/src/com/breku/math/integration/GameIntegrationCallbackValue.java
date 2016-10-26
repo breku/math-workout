@@ -8,22 +8,31 @@ import com.breku.math.game.level.LevelDifficulty;
  */
 public class GameIntegrationCallbackValue {
 
-    private int turnCounter;
-    private int score;
     private LevelDifficulty levelDifficulty;
     private GameType gameType;
+    private boolean shouldSetGameType;
 
     public GameIntegrationCallbackValue(LevelDifficulty levelDifficulty, GameType gameType) {
         this.levelDifficulty = levelDifficulty;
         this.gameType = gameType;
     }
 
-    public int getTurnCounter() {
-        return turnCounter;
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("GameIntegrationCallbackValue{");
+        sb.append("levelDifficulty=").append(levelDifficulty);
+        sb.append(", gameType=").append(gameType);
+        sb.append(", shouldSetGameType=").append(shouldSetGameType);
+        sb.append('}');
+        return sb.toString();
     }
 
-    public void setTurnCounter(int turnCounter) {
-        this.turnCounter = turnCounter;
+    public boolean isShouldSetGameType() {
+        return shouldSetGameType;
+    }
+
+    public void setShouldSetGameType(boolean shouldSetGameType) {
+        this.shouldSetGameType = shouldSetGameType;
     }
 
     public LevelDifficulty getLevelDifficulty() {
