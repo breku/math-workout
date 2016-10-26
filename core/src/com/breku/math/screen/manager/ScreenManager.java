@@ -87,7 +87,7 @@ public class ScreenManager {
         disposeCurrentScreen(currentScreen);
         final Map<String, Object> previousScreenAdditionalData = currentScreen.getAdditionalData();
         setupCurrentScreen(myGdxGame, targetScreenType, previousScreenAdditionalData);
-        Gdx.app.log(TAG, "<< Changing screen finished");
+        Gdx.app.debug(TAG, "<< Changing screen finished");
     }
 
     private void setupCurrentScreen(MyGdxGame myGdxGame, ScreenType targetScreenType, Map<String, Object> previousScreenAdditionalData) {
@@ -97,9 +97,9 @@ public class ScreenManager {
     }
 
     private void disposeCurrentScreen(AbstractScreen currentScreen) {
-        Gdx.app.log(TAG, ">> Disposing current screen=" + currentScreen.getClass().getSimpleName());
+        Gdx.app.debug(TAG, ">> Disposing current screen=" + currentScreen.getClass().getSimpleName());
         currentScreen.dispose();
-        Gdx.app.log(TAG, "<< Disposing finished");
+        Gdx.app.debug(TAG, "<< Disposing finished");
     }
 
     private AbstractScreen getTargetScreen(ScreenType screenType) {
