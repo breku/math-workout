@@ -1,6 +1,7 @@
 package com.breku.math.mainmenu;
 
 import com.breku.math.configuration.ContextConstants;
+import com.breku.math.integration.AbstractGoogleCallback;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.QuickMatchCallback;
 import com.breku.math.mainmenu.button.*;
@@ -16,6 +17,7 @@ import static com.breku.math.screen.manager.AssetType.*;
 public class MainMenuStage extends AbstractStage {
 
     private AbstractMenuButton quickMatchButton, achievementButton, exitButton, inboxButton, leaderboardButton, playWithFriendButton, loginLogoutButton;
+    private String currentPlayerName;
 
     public MainMenuStage(GoogleApiService googleApiService, AssetManagerWrapper assetManagerWrapper) {
         super(googleApiService, assetManagerWrapper);
@@ -24,6 +26,7 @@ public class MainMenuStage extends AbstractStage {
     @Override
     public void initialize() {
         super.initialize();
+        currentPlayerName = googleApiService.getCurrentPlayerName();
         quickMatchButton = new QuickMatchButton(assetManagerWrapper.getTexture(QUICK_MATCH_BUTTON_TEXTURE));
         playWithFriendButton = new PlayWithFriendButton(assetManagerWrapper.getTexture(PLAY_WITH_FRIEND_BUTTON_TEXTURE));
         inboxButton = new InboxButton(assetManagerWrapper.getTexture(INBOX_BUTTON_TEXTURE));
@@ -49,6 +52,15 @@ public class MainMenuStage extends AbstractStage {
         achievementButton.remove();
         leaderboardButton.remove();
         exitButton.remove();
+    }
+
+    @Override
+    public void draw() {
+        super.draw();
+
+        getBatch().begin();
+        font.draw(getBatch(),currentPlayerName,800,500);
+        getBatch().end();
     }
 
     @Override

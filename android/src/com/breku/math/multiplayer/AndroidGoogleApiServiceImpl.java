@@ -88,4 +88,9 @@ public class AndroidGoogleApiServiceImpl implements GoogleApiService {
     public boolean isSignedIn() {
         return androidLauncher.getGameHelper().isSignedIn();
     }
+
+    @Override
+    public String getCurrentPlayerName() {
+        return Games.Players.getCurrentPlayer(androidLauncher.getGameHelper().getApiClient()).getDisplayName();
+    }
 }

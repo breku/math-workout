@@ -50,6 +50,12 @@ public class DesktopGoogleApiService implements GoogleApiService {
         return true;
     }
 
+
+    @Override
+    public String getCurrentPlayerName() {
+        return "BREKU";
+    }
+
     private void callOnSuccessWithDelay(final GoogleCallback googleCallback) {
         timer.schedule(new TimerTask() {
             @Override

@@ -17,4 +17,6 @@ public interface GoogleApiService {
 
     boolean isSignedIn();
 
+    String getCurrentPlayerName();
+
 }
