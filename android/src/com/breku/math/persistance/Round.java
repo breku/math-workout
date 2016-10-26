@@ -1,5 +1,8 @@
 package com.breku.math.persistance;
 
+import com.breku.math.game.level.GameType;
+import com.breku.math.game.level.LevelDifficulty;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +11,25 @@ import java.util.Map;
  */
 public class Round {
 
+    private LevelDifficulty levelDifficulty;
+    private GameType gameType;
     private Map<String, Integer> scoreMap = new HashMap<>();
+
+    public LevelDifficulty getLevelDifficulty() {
+        return levelDifficulty;
+    }
+
+    public void setLevelDifficulty(LevelDifficulty levelDifficulty) {
+        this.levelDifficulty = levelDifficulty;
+    }
+
+    public GameType getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(GameType gameType) {
+        this.gameType = gameType;
+    }
 
     public Map<String, Integer> getScoreMap() {
         return scoreMap;

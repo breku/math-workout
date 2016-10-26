@@ -8,6 +8,7 @@ import com.breku.math.AndroidLauncher;
 import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleCallback;
 import com.breku.math.integration.TakeTurnIntegrationCallbackValue;
+import com.breku.math.persistance.Round;
 import com.breku.math.persistance.TurnData;
 import com.breku.math.persistance.TurnDataService;
 import com.google.android.gms.common.api.ResultCallback;
@@ -118,7 +119,8 @@ public class MatchService {
                 // callback might be in field because it might come from inboxLaunch or friendScreen (new intent was started)
                 final GoogleCallback correctGoogleCallback = getCorrectLaunchCallback(googleCallback);
 
-                GameIntegrationCallbackValue callbackValue = new GameIntegrationCallbackValue(turnData.getLevelDifficulty(), turnData.getGameType());
+                final Round currentRound = turnData.getCurrentRound();
+                final GameIntegrationCallbackValue callbackValue = new GameIntegrationCallbackValue(currentRound.getLevelDifficulty(), currentRound.getGameType());
                 if (turnData.isFirstRound()) {
                     callbackValue.setShouldSetGameType(true);
                 }

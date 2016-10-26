@@ -14,8 +14,7 @@ public class TurnData {
     private String data = "";
     private boolean firstRound = true;
     private int turnCounter;
-    private LevelDifficulty levelDifficulty;
-    private GameType gameType;
+
     private List<Round> roundList = Arrays.asList(new Round(), new Round(), new Round(), new Round());
 
     public Round getCurrentRound() {
@@ -55,19 +54,4 @@ public class TurnData {
         this.turnCounter = turnCounter;
     }
 
-    public LevelDifficulty getLevelDifficulty() {
-        return levelDifficulty;
-    }
-
-    public void setLevelDifficulty(LevelDifficulty levelDifficulty) {
-        this.levelDifficulty = levelDifficulty;
-    }
-
-    public GameType getGameType() {
-        return gameType;
-    }
-
-    public void setGameType(GameType gameType) {
-        this.gameType = gameType;
-    }
 }

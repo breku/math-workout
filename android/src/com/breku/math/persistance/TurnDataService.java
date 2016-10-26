@@ -54,8 +54,9 @@ public class TurnDataService {
     }
 
     public void updateLevelAndGameType(LevelDifficulty levelDifficulty, GameType gameType) {
-        turnData.setGameType(gameType);
-        turnData.setLevelDifficulty(levelDifficulty);
+        final Round currentRound = turnData.getCurrentRound();
+        currentRound.setGameType(gameType);
+        currentRound.setLevelDifficulty(levelDifficulty);
     }
 
     private String getStringFromByteArray(byte[] byteArray) {
