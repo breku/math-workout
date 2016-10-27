@@ -125,7 +125,7 @@ public class MatchService {
                 } else {
                     callbackValue.setShouldSetGameType(false);
                 }
-                callbackValue.setTurnCounter(turnData.getTurnCounter());
+                callbackValue.setTurnData(turnData);
                 correctGoogleCallback.setCallbackValue(callbackValue);
                 correctGoogleCallback.onSucces();
 

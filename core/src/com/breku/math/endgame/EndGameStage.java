@@ -6,6 +6,7 @@ import com.breku.math.game.level.LevelDifficulty;
 import com.breku.math.integration.GameIntegrationCallbackValue;
 import com.breku.math.integration.GoogleApiService;
 import com.breku.math.integration.SimpleCallback;
+import com.breku.math.integration.persistance.TurnData;
 import com.breku.math.screen.ScreenType;
 import com.breku.math.screen.manager.AssetManagerWrapper;
 import com.breku.math.stage.AbstractStage;
@@ -16,7 +17,7 @@ import com.breku.math.stage.AbstractStage;
 public class EndGameStage extends AbstractStage {
 
     private int score;
-    private int turnCounter;
+    private TurnData turnData;
     private LevelDifficulty levelDifficulty;
     private GameType gameType;
 
@@ -28,7 +29,7 @@ public class EndGameStage extends AbstractStage {
     public void initialize() {
         super.initialize();
         score = (int) getAdditionalDataValue(ContextConstants.ADDITIONAL_DATA_GAME_SCORE);
-        turnCounter = (int) getAdditionalDataValue(ContextConstants.ADDITIONAL_DATA_TURN_COUNTER);
+        turnData = (TurnData) getAdditionalDataValue(ContextConstants.ADDITIONAL_DATA_TURN_COUNTER);
         levelDifficulty = (LevelDifficulty) getAdditionalDataValue(ContextConstants.ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY);
         gameType = (GameType) getAdditionalDataValue(ContextConstants.ADDITIONAL_DATA_GAME_TYPE_KEY);
     }
@@ -58,9 +59,8 @@ public class EndGameStage extends AbstractStage {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         final GameIntegrationCallbackValue callbackValue = new GameIntegrationCallbackValue(levelDifficulty, gameType);
         callbackValue.setScore(score);
-        callbackValue.setTurnCounter(turnCounter);
 
-        if (turnCounter % 2 != 0) {
+        if (turnData.getTurnCounter() % 2 != 0) {
             googleApiService.takeTurnAsMyself(new TakeTurnCallback(callbackValue, this), true);
             setTargetScreenType(ScreenType.LOADING);
         } else {
