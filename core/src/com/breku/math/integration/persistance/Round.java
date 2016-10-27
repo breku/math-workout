@@ -1,4 +1,4 @@
-package com.breku.math.persistance;
+package com.breku.math.integration.persistance;
 
 import com.breku.math.game.level.GameType;
 import com.breku.math.game.level.LevelDifficulty;

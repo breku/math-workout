@@ -1,7 +1,4 @@
-package com.breku.math.persistance;
-
-import com.breku.math.game.level.GameType;
-import com.breku.math.game.level.LevelDifficulty;
+package com.breku.math.integration.persistance;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.breku.math.persistance;
+package com.breku.math.integration.persistance;
 
-import android.util.Log;
+import com.badlogic.gdx.Gdx;
 import com.breku.math.game.level.GameType;
 import com.breku.math.game.level.LevelDifficulty;
 import com.google.gson.Gson;
@@ -31,7 +31,7 @@ public class TurnDataService {
     // Creates a new instance of TurnDataService.
     public TurnData unpersist(byte[] byteArray) {
         final String jsonString = getStringFromByteArray(byteArray);
-        Log.d(TAG, String.format("Unpersisting jsonString=[%s]", jsonString));
+        Gdx.app.debug(TAG, String.format("Unpersisting jsonString=[%s]", jsonString));
         return gson.fromJson(jsonString, TurnData.class);
 
     }
@@ -63,13 +63,13 @@ public class TurnDataService {
         try {
             return new String(byteArray, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "Cannot create string from byteArray", e);
+            Gdx.app.error(TAG, "Cannot create string from byteArray", e);
             throw new IllegalStateException(e);
         }
     }
 
     private byte[] getBytesFromJsonObject(final String jsonString) {
-        Log.d(TAG, String.format("Persisting jsonString=[%s]", jsonString));
+        Gdx.app.debug(TAG, String.format("Persisting jsonString=[%s]", jsonString));
         return jsonString.getBytes(Charset.forName("UTF-8"));
     }
 }
