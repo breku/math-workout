@@ -8,7 +8,7 @@ import com.breku.math.integration.persistance.TurnData;
  * Created by brekol on 17.10.16.
  */
 public class GameIntegrationCallbackValue {
-    private int score;
+    private Integer score;
     private LevelDifficulty levelDifficulty;
     private GameType gameType;
     private boolean shouldSetGameType;
@@ -19,11 +19,11 @@ public class GameIntegrationCallbackValue {
         this.gameType = gameType;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 

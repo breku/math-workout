@@ -27,7 +27,7 @@ public class LoadingFinishedCallback extends AbstractGoogleCallback<GameIntegrat
                 !(boolean) stage.getAdditionalDataValue(ADDITIONAL_DATA_CALLBACK_SHOULD_FAIL)) {
             stage.addAdditionalData(ADDITIONAL_DATA_GAME_TYPE_KEY, callbackModel.getGameType());
             stage.addAdditionalData(ADDITIONAL_DATA_LEVEL_DIFFICULTY_KEY, callbackModel.getLevelDifficulty());
-            stage.addAdditionalData(ADDITIONAL_DATA_TURN_COUNTER, callbackModel.getTurnData());
+            stage.addAdditionalData(ADDITIONAL_DATA_TURN_DATA, callbackModel.getTurnData());
 
             if (callbackModel.isShouldSetGameType()) {
                 stage.addAdditionalData(ADDITIONAL_DATA_SET_GAME_TYPE, true);

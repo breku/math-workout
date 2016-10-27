@@ -59,6 +59,11 @@ public class TurnDataService {
         currentRound.setLevelDifficulty(levelDifficulty);
     }
 
+    public void updateName(String participantId, String name) {
+        final Map<String, String> playersNameMap = turnData.getPlayersNameMap();
+        playersNameMap.put(participantId, name);
+    }
+
     private String getStringFromByteArray(byte[] byteArray) {
         try {
             return new String(byteArray, "UTF-8");

@@ -24,13 +24,14 @@ public class TakeTurnCallback extends AbstractGoogleCallback<GameIntegrationCall
     @Override
     public void onSucces() {
         Gdx.app.log(TAG, String.format("onSucces with callbackModel=[%s]", callbackModel));
+        stage.addAdditionalData(ContextConstants.ADDITIONAL_DATA_TURN_DATA, callbackModel.getTurnData());
+
         if (callbackModel.isShouldSetGameType()) {
             stage.addAdditionalData(ContextConstants.ADDITIONAL_DATA_SET_GAME_TYPE, true);
+            stage.setTargetScreenType(ScreenType.GAME_TYPE);
+        } else {
+            stage.setTargetScreenType(ScreenType.LOADING_FINISHED);
         }
-
-        stage.setTargetScreenType(ScreenType.LOADING_FINISHED);
-
-
     }
 
     @Override

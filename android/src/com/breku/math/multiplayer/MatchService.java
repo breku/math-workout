@@ -10,6 +10,7 @@ import com.breku.math.integration.GoogleCallback;
 import com.breku.math.integration.persistance.Round;
 import com.breku.math.integration.persistance.TurnData;
 import com.breku.math.integration.persistance.TurnDataService;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesStatusCodes;
@@ -112,11 +113,18 @@ public class MatchService {
         switch (turnStatus) {
             case TurnBasedMatch.MATCH_TURN_STATUS_MY_TURN:
                 TurnData turnData = turnDataService.unpersist(mMatch.getData());
-                turnDataService.setTurnData(turnData);
-                Log.e(TAG, "setGameplayUI");
-
+                final String myParticipantIdFromCurrentMatch = getMyParticipantIdFromCurrentMatch();
                 // callback might be in field because it might come from inboxLaunch or friendScreen (new intent was started)
                 final GoogleCallback correctGoogleCallback = getCorrectLaunchCallback(googleCallback);
+
+                turnDataService.setTurnData(turnData);
+                if (turnData.getPlayersNameMap().get(myParticipantIdFromCurrentMatch) == null) {
+                    takeTurnAsMyselfUpdateName(correctGoogleCallback);
+                    return;
+                }
+
+                Log.e(TAG, "setGameplayUI");
+
 
                 final Round currentRound = turnData.getCurrentRound();
                 final GameIntegrationCallbackValue callbackValue = new GameIntegrationCallbackValue(currentRound.getLevelDifficulty(), currentRound.getGameType());
@@ -162,6 +170,8 @@ public class MatchService {
 
         String playerId = Games.Players.getCurrentPlayerId(androidLauncher.getGameHelper().getApiClient());
         String myParticipantId = mMatch.getParticipantId(playerId);
+        final String displayName = Games.Players.getCurrentPlayer(androidLauncher.getGameHelper().getApiClient()).getDisplayName();
+        turnDataService.updateName(myParticipantId, displayName);
 
 
         Games.TurnBasedMultiplayer.takeTurn(androidLauncher.getGameHelper().getApiClient(), match.getMatchId(),
@@ -263,17 +273,23 @@ public class MatchService {
 
     public void takeTurnAsMyself(final GoogleCallback<GameIntegrationCallbackValue> googleCallback, boolean incrementTurnCounter) {
 
-        String playerId = Games.Players.getCurrentPlayerId(androidLauncher.getGameHelper().getApiClient());
-        String myParticipantId = mMatch.getParticipantId(playerId);
+        final GoogleApiClient googleApiClient = androidLauncher.getGameHelper().getApiClient();
+        final String playerId = Games.Players.getCurrentPlayerId(googleApiClient);
+        final String myParticipantId = mMatch.getParticipantId(playerId);
+        final String displayName = Games.Players.getCurrentPlayer(androidLauncher.getGameHelper().getApiClient()).getDisplayName();
 
         final GameIntegrationCallbackValue callbackValue = googleCallback.getCallbackValue();
         turnDataService.updateLevelAndGameType(callbackValue.getLevelDifficulty(), callbackValue.getGameType());
+        turnDataService.updateName(myParticipantId, displayName);
+        if (callbackValue.getScore() != null) {
+            turnDataService.updateScoreForPlayer(myParticipantId, callbackValue.getScore());
+        }
 
         if (incrementTurnCounter) {
             turnDataService.incrementTurnCounter();
         }
 
-        Games.TurnBasedMultiplayer.takeTurn(androidLauncher.getGameHelper().getApiClient(), mMatch.getMatchId(),
+        Games.TurnBasedMultiplayer.takeTurn(googleApiClient, mMatch.getMatchId(),
                 turnDataService.persist(), myParticipantId).setResultCallback(
                 new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>() {
                     @Override
@@ -282,6 +298,22 @@ public class MatchService {
                     }
                 });
 
+    }
+
+    private void takeTurnAsMyselfUpdateName(final GoogleCallback googleCallback) {
+        final GoogleApiClient googleApiClient = androidLauncher.getGameHelper().getApiClient();
+        final String myParticipantId = getMyParticipantIdFromCurrentMatch();
+        final String displayName = Games.Players.getCurrentPlayer(androidLauncher.getGameHelper().getApiClient()).getDisplayName();
+        turnDataService.updateName(myParticipantId, displayName);
+
+        Games.TurnBasedMultiplayer.takeTurn(googleApiClient, mMatch.getMatchId(),
+                turnDataService.persist(), myParticipantId).setResultCallback(
+                new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>() {
+                    @Override
+                    public void onResult(TurnBasedMultiplayer.UpdateMatchResult result) {
+                        processResult(result, googleCallback);
+                    }
+                });
     }
 
     private String getMyParticipantIdFromCurrentMatch() {
